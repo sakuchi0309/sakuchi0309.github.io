@@ -1,7 +1,7 @@
 'use strict';
 
 const CACHE_PREFIX = 'math-explorer-island-';
-const CACHE_NAME = CACHE_PREFIX + 'platform-v3';
+const CACHE_NAME = CACHE_PREFIX + 'platform-v8';
 
 const APP_SHELL = [
   './',
@@ -16,7 +16,13 @@ const APP_SHELL = [
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-maskable-512.png',
-  './icons/apple-touch-icon.png'
+  './icons/apple-touch-icon.png',
+  './assets/platform/hero.webp',
+  './assets/platform/platform-scene.webp',
+  './assets/multiplication/workshop.webp',
+  './assets/multiplication/mascot-workshop.webp',
+  './assets/division/division-bay.webp',
+  './assets/fractions/fraction-forest.webp'
 ];
 
 function u(path) {

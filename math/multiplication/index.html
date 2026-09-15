@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="format-detection" content="telephone=no">
-<title>乘法探險島 v17</title>
+<title>乘法工坊｜數學探險島</title>
 <style>
 :root{
   --bg:#f5f7fb; --card:#fff; --text:#1f2937; --muted:#64748b; --line:#dbe2ea;
@@ -341,6 +341,94 @@ body.standard-ui .carrycell{font-size:19px}
 @media(max-width:900px){.level-map{grid-template-columns:1fr}}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+
+.workshop-brand-hero{
+  position:relative;overflow:hidden;margin:4px 0 18px;border-radius:22px;
+  border:1px solid #ead6b8;background:#fff8ed;box-shadow:0 12px 30px rgba(112,73,30,.10)
+}
+.workshop-brand-hero img{
+  display:block;width:100%;height:min(310px,38vw);min-height:180px;object-fit:cover;object-position:center 54%
+}
+.workshop-brand-copy{
+  position:absolute;left:14px;top:14px;max-width:min(360px,60%);padding:0;background:transparent;box-shadow:none
+}
+.workshop-wood-title{
+  display:inline-flex;align-items:center;gap:10px;padding:11px 16px;border-radius:18px;
+  background:linear-gradient(180deg,#9b6435 0%,#7f4a25 100%);
+  border:4px solid #5b3418;box-shadow:0 10px 24px rgba(57,33,14,.28), inset 0 2px 0 rgba(255,255,255,.18);
+  color:#fff7e8
+}
+.workshop-wood-title strong{
+  font-size:clamp(22px,4vw,34px);line-height:1;color:#fff8ec;text-shadow:0 2px 0 rgba(77,43,17,.55)
+}
+.workshop-brand-sub{
+  margin-top:10px;display:inline-block;padding:10px 13px;border-radius:14px;
+  background:rgba(255,250,241,.90);border:1px solid rgba(132,86,45,.18);box-shadow:0 8px 24px rgba(64,40,18,.10);
+  color:#765b43;line-height:1.6
+}
+#feedback.ok,#feedback.bad,#feedback.warn{align-items:flex-start;gap:11px}
+#feedback.ok::before,#feedback.bad::before,#feedback.warn::before{
+  content:"";flex:0 0 52px;width:52px;height:52px;border-radius:50%;
+  background:url('../assets/multiplication/mascot-workshop.webp') center/cover no-repeat;
+  box-shadow:0 2px 8px rgba(71,37,113,.16);border:2px solid rgba(255,255,255,.92)
+}
+.workshop-mascot-note{
+  display:flex;align-items:center;gap:10px;margin-top:10px;padding:9px 11px;border-radius:13px;
+  background:#fff8eb;border:1px solid #f3d5a5;color:#765b43;font-weight:700
+}
+.workshop-mascot-note img{width:46px;height:46px;border-radius:50%;object-fit:cover}
+@media(max-width:640px){
+  .workshop-brand-copy{left:10px;top:10px;max-width:calc(100% - 20px)}
+  .workshop-brand-hero img{height:210px}
+  .workshop-brand-sub{font-size:14px}
+  #feedback.ok::before,#feedback.bad::before,#feedback.warn::before{flex-basis:44px;width:44px;height:44px}
+}
+
+  .workshop-brand-hero img{height:220px}
+  #feedback.ok::before,#feedback.bad::before,#feedback.warn::before{flex-basis:44px;width:44px;height:44px}
+}
+
+
+/* ===== v7：乘法工坊獎勵視覺 ===== */
+.reward-toast{
+  background:linear-gradient(180deg,#fff7df 0%,#f5dfb6 100%)!important;
+  border:4px solid #80502b!important;border-radius:22px!important;
+  box-shadow:0 18px 50px rgba(83,50,25,.28), inset 0 2px 0 rgba(255,255,255,.65)!important;
+  color:#5b361f!important;padding:15px 20px 15px 78px!important;text-align:left!important;
+  min-height:74px
+}
+.reward-toast::before{
+  content:"";position:absolute;left:13px;top:50%;transform:translateY(-50%);
+  width:52px;height:52px;border-radius:50%;
+  background:url('../assets/multiplication/mascot-workshop.webp') center/cover no-repeat;
+  border:3px solid #d89b3c;box-shadow:0 3px 10px rgba(76,43,21,.20)
+}
+.reward-toast .big{color:#7a431d!important;font-size:26px!important}
+.reward-toast .meta{color:#7b5a3e!important}
+.medal-wall{gap:10px!important}
+.medal-tag{
+  border-radius:14px!important;background:linear-gradient(#f7ead0,#ecd09b)!important;
+  color:#705035!important;border:2px solid #c59a5d!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75)
+}
+.medal-tag.unlocked{
+  background:linear-gradient(#ffe7a2,#f5be4f)!important;
+  color:#674018!important;border-color:#aa7226!important;
+  box-shadow:0 4px 10px rgba(155,98,28,.16), inset 0 1px 0 rgba(255,255,255,.75)
+}
+.micro-reward-bubble{
+  background:#fff2bf!important;border:2px solid #d08a2e!important;color:#77491f!important;
+  box-shadow:0 6px 18px rgba(119,73,31,.18)!important
+}
+.level-card.current{
+  border-color:#d69a43!important;box-shadow:0 0 0 4px rgba(214,154,67,.12)!important
+}
+.levelUnlockBanner{
+  background:linear-gradient(180deg,#fff3ca,#f0d49c)!important;
+  border:3px solid #8d5b2f!important;color:#6b401e!important
+}
+
 </style>
 <meta name="theme-color" content="#2563eb">
 <meta name="mobile-web-app-capable" content="yes">
@@ -351,8 +439,14 @@ body.standard-ui .carrycell{font-size:19px}
 <canvas id="confettiCanvas" aria-hidden="true"></canvas>
 <div id="rewardToast" class="reward-toast" role="status" aria-live="polite"></div>
 <div class="wrap">
-  <h1>🏝️ 乘法探險島 <span class="badge">v17</span></h1>
-  <div class="sub">拆解、方格、直式，一關一關破解乘法；v17 讓直式動畫與自己來共用同一套位值軌道與黃粉綠紅提示。</div>
+  <a class="workshop-back" href="../">← 返回 🧭 數學探險島</a>
+  <section class="workshop-brand-hero">
+    <img src="../assets/multiplication/workshop.webp" alt="乘法工坊：冒煙煙囪、齒輪、乘法立牌與紫色魔法探險精靈">
+    <div class="workshop-brand-copy">
+      <div class="workshop-wood-title"><span>🔧</span><strong>乘法工坊</strong></div>
+      
+    </div>
+  </section>
 
   <div class="card">
     <div class="row">
@@ -361,7 +455,7 @@ body.standard-ui .carrycell{font-size:19px}
       <button class="primary" id="startBtn">更新題目</button>
       <button class="ghost" id="randomBtn">隨機換一題</button>
       <button class="ghost" id="adaptiveBtn">依弱點出題</button>
-      <button class="primary" id="levelBtn">🗺️ 挑戰目前關卡</button>
+      <button class="primary" id="levelBtn">🗺️ 開始目前工作站</button>
     </div>
 
     <div class="row" style="margin-top:14px">
@@ -388,9 +482,9 @@ body.standard-ui .carrycell{font-size:19px}
     <div class="answer" id="answer"></div>
     <div class="small">支援 1～9999 × 1～9999</div>
     <div class="reward-strip" aria-label="鼓勵與成就">
-      <div class="reward-chip streak">🔥 連勝 <strong id="streakCount">0</strong></div>
+      <div class="reward-chip streak">🔥 連續完成 <strong id="streakCount">0</strong></div>
       <div class="reward-chip medal">🏅 <span id="medalNow">準備出發</span></div>
-      <div class="reward-chip level-chip">🗺️ <strong id="currentLevelChip">Lv.1</strong> <span id="currentLevelName">暖身沙灘</span></div>
+      <div class="reward-chip level-chip">⚙️ <strong id="currentLevelChip">Lv.1</strong> <span id="currentLevelName">暖身工作台</span></div>
       <button class="ghost" id="soundToggle" type="button" aria-pressed="true">🔊 音效：開</button>
     </div>
     <div class="touch-tip note">觸控裝置已放大輸入格與按鈕；橫向直式區可直接用手指滑動。</div>
@@ -401,8 +495,8 @@ body.standard-ui .carrycell{font-size:19px}
     <button class="tab" data-tab="decompose">拆解</button>
     <button class="tab" data-tab="vertical">直式動畫</button>
     <button class="tab" data-tab="practice">自己來</button>
-    <button class="tab" data-tab="map">探險地圖</button>
-    <button class="tab" data-tab="records">學習紀錄</button>
+    <button class="tab" data-tab="map">工坊進度</button>
+    <button class="tab" data-tab="records">工坊紀錄</button>
   </div>
 
   <div class="panel active" id="concept">
@@ -485,6 +579,10 @@ body.standard-ui .carrycell{font-size:19px}
         </div>
         <div id="practiceFeedback" class="feedback"></div>
         <div id="practiceFocus" class="note focusnote" style="display:none"></div>
+        <div class="workshop-mascot-note">
+          <img src="../assets/multiplication/mascot-workshop.webp" alt="">
+          <span>工坊小精靈會在提示、診斷與完成題目時陪你，但不會擋住直式與計算區。</span>
+        </div>
         <div id="practiceHint" class="note" style="display:none"></div>
       </div>
 
@@ -502,18 +600,18 @@ body.standard-ui .carrycell{font-size:19px}
 
   <div class="panel" id="map">
     <div class="card">
-      <h2>5. 🗺️ 探險地圖</h2>
-      <div class="small">每一關都在練不同能力。不是做滿題數就升級，而是要真的穩定掌握。</div>
+      <h2>5. ⚙️ 工坊成長圖</h2>
+      <div class="small">每個工作站都在打磨不同乘法能力；不是只做滿題數，而是要穩定掌握後才啟用下一站。</div>
       <div class="map-summary">
         <div class="row" style="justify-content:space-between">
-          <div><b id="mapCurrentTitle">目前：Lv.1 暖身沙灘</b><div class="small" id="mapCurrentGoal"></div></div>
-          <button class="primary" id="mapChallengeBtn">開始目前關卡</button>
+          <div><b id="mapCurrentTitle">目前：Lv.1 🔧 暖身工作台</b><div class="small" id="mapCurrentGoal"></div></div>
+          <button class="primary" id="mapChallengeBtn">開始目前工作站</button>
         </div>
         <div class="map-path" id="mapPath"></div>
         <div class="level-unlock-banner" id="levelUnlockBanner"></div>
       </div>
       <div class="level-map" id="levelMap"></div>
-      <div class="note teacher-only">解鎖條件：該關至少 5 題有效作答，最近 5 題至少 4 題第一次答對，且最近 5 題中至少出現 3 題連續第一次答對。訂正成功仍會得到鼓勵，但不補算「第一次答對」。</div>
+      <div class="note teacher-only">啟用下一工作站：目前工作站至少 5 題有效作答，最近 5 題至少 4 題第一次答對，且最近 5 題中至少出現 3 題連續第一次答對。訂正成功仍會得到鼓勵，但不補算「第一次答對」。</div>
     </div>
   </div>
 
@@ -521,10 +619,10 @@ body.standard-ui .carrycell{font-size:19px}
     <div class="card">
       <div class="row" style="justify-content:space-between">
         <div>
-          <h2 style="margin-bottom:4px">6. 學習紀錄</h2>
+          <h2 style="margin-bottom:4px">6. 工坊紀錄</h2>
           <div class="small">紀錄保存在此瀏覽器的 localStorage。若清除網站資料，紀錄也會消失。</div>
         </div>
-        <button class="danger" id="resetRecordsBtn">清除學習紀錄</button>
+        <button class="danger" id="resetRecordsBtn">清除工坊紀錄</button>
       </div>
       <div class="note storage-warn" style="border-color:#fca5a5;background:#fef2f2;color:#991b1b">
         這個瀏覽器目前不允許寫入 localStorage（常見於無痕視窗）。統計只會保留到關閉分頁為止。
@@ -534,10 +632,10 @@ body.standard-ui .carrycell{font-size:19px}
         <div class="stat"><div class="label">已作答題數</div><div class="num" id="statAttempts">0</div></div>
         <div class="stat"><div class="label">一次就答對</div><div class="num" id="statCorrect">0</div></div>
         <div class="stat"><div class="label">一次答對率</div><div class="num" id="statRate">0%</div></div>
-        <div class="stat"><div class="label">最佳連勝</div><div class="num" id="statBestStreak">0</div></div>
+        <div class="stat"><div class="label">最佳連續完成</div><div class="num" id="statBestStreak">0</div></div>
       </div>
       <div class="card" style="box-shadow:none;margin-top:16px">
-        <h3>🏅 我的勳章</h3><div class="medal-wall" id="medalWall"></div>
+        <h3>🏅 我的工坊徽章</h3><div class="medal-wall" id="medalWall"></div>
       </div>
 
       <div class="adaptive">
@@ -549,7 +647,7 @@ body.standard-ui .carrycell{font-size:19px}
       </div>
 
       <div class="grid2" style="margin-top:16px">
-        <div class="card" style="box-shadow:none"><h3>錯誤類型累計</h3><div id="errorStats"></div></div>
+        <div class="card" style="box-shadow:none"><h3>需要再打磨累計</h3><div id="errorStats"></div></div>
         <div class="card" style="box-shadow:none"><h3>練習方式</h3><div id="modeStats"></div></div>
       </div>
 
@@ -596,13 +694,13 @@ function clearLevelQuestionContext(){
 
 
 const levelDefs=[
-  {id:1,icon:'🏖️',name:'暖身沙灘',goal:'先把九九乘法與 1 位數乘法站穩。',aDigits:1,bDigits:1,focus:'basic'},
-  {id:2,icon:'🌊',name:'進位小徑',goal:'2 位 × 1 位，學會「寫個位、進位、再加進位」。',aDigits:2,bDigits:1,focus:'carry'},
-  {id:3,icon:'🌳',name:'位值森林',goal:'2 位 × 2 位，理解十位部分積為什麼要左移。',aDigits:2,bDigits:2,focus:'place'},
-  {id:4,icon:'⚓',name:'三位數港口',goal:'3 位 × 1 位，把連續進位做穩。',aDigits:3,bDigits:1,focus:'carry'},
-  {id:5,icon:'⛰️',name:'部分積山谷',goal:'3 位 × 2 位，完整處理兩列部分積與最後相加。',aDigits:3,bDigits:2,focus:'addition'},
-  {id:6,icon:'🏰',name:'四位數高塔',goal:'4 位 × 2 位，維持位值與欄位對齊。',aDigits:4,bDigits:2,focus:'position'},
-  {id:7,icon:'💎',name:'寶藏神殿',goal:'4 位 × 4 位綜合挑戰，最高到 9999 × 9999。',aDigits:4,bDigits:4,focus:'mixed'}
+  {id:1,icon:'🔧',name:'暖身工作台',goal:'先把九九乘法與 1 位數乘法打磨穩，讓工坊順利開工。',aDigits:1,bDigits:1,focus:'basic'},
+  {id:2,icon:'⚙️',name:'進位練習台',goal:'2 位 × 1 位，熟悉「寫個位、產生進位、下一格再加進位」。',aDigits:2,bDigits:1,focus:'carry'},
+  {id:3,icon:'🧩',name:'雙位組裝區',goal:'2 位 × 2 位，把兩列部分積正確對位，理解十位列為什麼要左移。',aDigits:2,bDigits:2,focus:'place'},
+  {id:4,icon:'🔩',name:'連續進位站',goal:'3 位 × 1 位，把連續進位一格一格處理穩定。',aDigits:3,bDigits:1,focus:'carry'},
+  {id:5,icon:'🏗️',name:'部分積組裝線',goal:'3 位 × 2 位，完成兩列部分積並把最後加法組裝正確。',aDigits:3,bDigits:2,focus:'addition'},
+  {id:6,icon:'🎯',name:'精準校準室',goal:'4 位 × 2 位，仔細校準每一個位值與欄位對齊。',aDigits:4,bDigits:2,focus:'position'},
+  {id:7,icon:'🏆',name:'工匠挑戰室',goal:'4 位 × 4 位綜合挑戰，把所有工坊技巧一起用上，最高到 9999 × 9999。',aDigits:4,bDigits:4,focus:'mixed'}
 ];
 function blankLevels(){
   const o={};levelDefs.forEach(l=>o[l.id]={attempts:0,correct:0,recent:[],mastered:false});return o;
@@ -646,15 +744,15 @@ function renderLevelUI(){
   }).join('');
   if($('levelMap'))$('levelMap').innerHTML=levelDefs.map(l=>{
     const info=levelProgressInfo(r,l.id),unlocked=l.id<=u,mastered=info.st.mastered||l.id<u,current=l.id===c;
-    const status=mastered?'已掌握':current?'目前關卡':unlocked?'已解鎖':'尚未解鎖';
+    const status=mastered?'已完成':current?'目前工作站':unlocked?'已啟用':'尚未啟用';
     const stage=levelStageInfo(l.id,info.st.attempts);
     return `<div class="level-card ${current?'current':''} ${mastered?'mastered':''} ${!unlocked?'locked':''}">
       <div class="level-head"><div class="row" style="align-items:flex-start"><span class="level-icon">${unlocked?l.icon:'🔒'}</span><div><h3>Lv.${l.id} ${l.name}</h3><div class="level-sub">${l.goal}</div></div></div><span class="level-status">${status}</span></div>
       ${unlocked&&!mastered?`<div class="level-stage">${stage.label}｜${stage.desc}</div>`:''}
       <div class="level-progress"><div style="width:${mastered?100:info.pct}%"></div></div>
-      <div class="level-metrics"><span>有效題數 <b>${info.st.attempts}</b>/5+</span><span>近5題 <b>${info.recentCorrect}</b>/5</span><span>關卡連勝 <b>${info.run}</b>/3</span></div>
-      <div class="level-rule">解鎖：至少 5 題、近 5 題至少 4 題第一次答對、其中至少 3 題連勝。</div>
-      <div class="level-actions">${unlocked?`<button class="${current?'primary':'ghost'}" data-level-select="${l.id}">${current?'挑戰這一關':'選擇這一關'}</button>`:'<button class="ghost" disabled>🔒 先完成前一關</button>'}</div>
+      <div class="level-metrics"><span>有效題數 <b>${info.st.attempts}</b>/5+</span><span>近5題 <b>${info.recentCorrect}</b>/5</span><span>連續完成 <b>${info.run}</b>/3</span></div>
+      <div class="level-rule">啟用下一站：至少 5 題、近 5 題至少 4 題第一次答對、其中至少 3 題連續完成。</div>
+      <div class="level-actions">${unlocked?`<button class="${current?'primary':'ghost'}" data-level-select="${l.id}">${current?'開始這一站':'選擇這一站'}</button>`:'<button class="ghost" disabled>🔒 先完成前一站</button>'}</div>
     </div>`;
   }).join('');
   document.querySelectorAll('[data-level-select]').forEach(b=>b.onclick=()=>{setCurrentLevel(Number(b.dataset.levelSelect));generateLevelProblem(Number(b.dataset.levelSelect))});
@@ -670,7 +768,7 @@ const colOf=(p,w)=>w-1-p;
 /* 第 pos 列（0=個位列）的顏色代號 */
 const rowColor=pos=>'pc'+(pos%4);
 
-/* ================= 學習紀錄 ================= */
+/* ================= 工坊紀錄 ================= */
 function blankRecords(){
   return {attempts:0,correct:0,
     errors:{basic:0,carry:0,place:0,addition:0,position:0,other:0},
@@ -711,26 +809,26 @@ const modeLabel=m=>({vertical:'直式',breakdown:'拆解法',area:'方格圖'}[m
 
 const encouragementPools={
   first:[
-    '太棒了！這一題一次破解！','漂亮！你的乘法探險雷達很準！','超讚！每一步都接得好穩！',
-    '成功登島！這題被你破解了！','好厲害！位值和計算都守住了！','完美通關！繼續前進！',
-    '哇！這題像寶箱一樣被你打開了！','算得又快又穩，探險能量 +1！',
-    '漂亮過關！你的乘法地圖越來越清楚了！','一次成功！今天的數學手感很好喔！'
+    '太棒了！這件乘法作品一次完成！','工坊的小齒輪轉起來了！這一步做得很準！','漂亮開工！每一步都接得很穩！',
+    '完成了！你把這題乘法作品做出來了！','好厲害！位值和計算都守住了！','工坊亮起來了！繼續打造下一題！',
+    '哇！這個乘法任務被你順利完成了！','算得又快又穩，工坊能量 +1！',
+    '作品完成！你的乘法地圖越來越清楚了！','一次成功！今天的工坊手感很好喔！'
   ],
   corrected:[
-    '你找到線索又修正成功，這就是真的學會！','訂正成功！你把卡住的地方解開了！',
-    '抓到小線索了！數學偵探力升級！','修好了！這一步現在更穩了！',
-    '很棒，你沒有放棄，最後把答案找到了！','這次訂正很有價值，下一題會更順！',
-    '你把不確定的地方變成會的了！','成功修正！這也是一種很厲害的進步！'
+    '你找到線索又修正成功，這件作品修好了！','修正完成！你把卡住的地方解開了！',
+    '抓到小問題了！現在這件作品更穩了！','修好了！這一步現在更順了！',
+    '很棒，你沒有放棄，最後把作品完成了！','這次修正很有價值，下一件會更順！',
+    '你把不確定的地方變成會的了！','成功修正！這也是很厲害的進步！'
   ],
   wrong:[
-    '快找到了！我們只要再看這一步。','沒關係，這一步值得再看一次。',
+    '快找到了！我們只要再檢查這一步。','沒關係，工坊裡的作品可以慢慢修。',
     '你已經做到很多了，現在只修正這個小地方。','先不用整題重算，我們把這一格弄懂就好。',
     '很好，你找到需要再檢查的地方了。','答案就在附近，我們沿著這個線索找。',
-    '這題正在告訴我們哪個地方可以再練一下。','每次修正都會讓下一題更快、更穩。'
+    '這題正在告訴我們哪個地方可以再練一下。','每次修正都會讓下一件作品更快、更穩。'
   ],
   incomplete:[
     '還差一小步，把空格補齊就可以檢查囉！','快完成了！再把剩下的格子填好。',
-    '這題還沒走到終點，再完成一點點。','剩下的格子正在等你，把它們補上吧！'
+    '這件作品還沒走到終點，再完成一點點。','剩下的格子正在等你，把它們補上吧！'
   ]
 };
 function pickEncouragement(poolName){
@@ -744,11 +842,11 @@ function pickEncouragement(poolName){
   return pool[idx];
 }
 const medalDefs=[
-  {id:'first',icon:'🌱',name:'初次登島',test:a=>a.totalSolved>=1},
-  {id:'streak3',icon:'🥉',name:'三連勝',test:a=>a.bestStreak>=3},
-  {id:'streak5',icon:'🥈',name:'五連勝',test:a=>a.bestStreak>=5},
-  {id:'streak10',icon:'🥇',name:'十連勝',test:a=>a.bestStreak>=10},
-  {id:'solve20',icon:'🏆',name:'二十題探險家',test:a=>a.totalSolved>=20}
+  {id:'first',icon:'🌱',name:'工坊開工',test:a=>a.totalSolved>=1},
+  {id:'streak3',icon:'🥉',name:'三次連續完成',test:a=>a.bestStreak>=3},
+  {id:'streak5',icon:'🥈',name:'五次連續完成',test:a=>a.bestStreak>=5},
+  {id:'streak10',icon:'🥇',name:'十次連續完成',test:a=>a.bestStreak>=10},
+  {id:'solve20',icon:'🏆',name:'二十件作品完成',test:a=>a.totalSolved>=20}
 ];
 function randomFrom(arr){return arr[Math.floor(Math.random()*arr.length)]}
 function updateAchievementUI(){
@@ -1183,19 +1281,19 @@ function celebrate(event){
     launchConfetti(major?'medal':'first');
     playPositiveSound(major?'medal':'success');
     const mt=event.newMedals&&event.newMedals.length?`　新勳章：${event.newMedals.map(m=>m.icon+' '+m.name).join('、')}`:'';
-    showRewardToast(pickEncouragement('first'),`🔥 連勝 ${a.currentStreak}${mt}${levelMsg}`);
+    showRewardToast(pickEncouragement('first'),`🔥 連續完成 ${a.currentStreak} 題${mt}${levelMsg}`);
   }else if(event.corrected){
     launchConfetti((event.newMedals&&event.newMedals.length)?'medal':'corrected');
     playPositiveSound((event.newMedals&&event.newMedals.length)?'medal':'corrected');
     const mt=event.newMedals&&event.newMedals.length?`　新勳章：${event.newMedals.map(m=>m.icon+' '+m.name).join('、')}`:'';
-    showRewardToast(pickEncouragement('corrected'),`訂正成功${mt}`);
+    showRewardToast(pickEncouragement('corrected'),`修正完成${mt}`);
   }
 
   if(event.newLevel&&$('levelUnlockBanner')){
     $('levelUnlockBanner').style.display='block';
     $('levelUnlockBanner').textContent=event.newLevel.completed
-      ?'💎 恭喜！乘法探險島全部關卡完成！'
-      :`🎉 新關卡解鎖：Lv.${event.newLevel.level.id} ${event.newLevel.level.icon} ${event.newLevel.level.name}`;
+      ?'🏆 恭喜！乘法工坊全部工作站完成！'
+      :`⚙️ 新工作站啟用：Lv.${event.newLevel.level.id} ${event.newLevel.level.icon} ${event.newLevel.level.name}`;
   }
   updateAchievementUI();
 }
@@ -1215,7 +1313,7 @@ function recordAttempt(res){
   if(res.ok){r.correct++;firstCorrect=true;r.achievements.currentStreak=(r.achievements.currentStreak||0)+1;r.achievements.bestStreak=Math.max(r.achievements.bestStreak||0,r.achievements.currentStreak);r.achievements.totalSolved=(r.achievements.totalSolved||0)+1;newMedals=unlockMedals(r)}
   else{r.errors[res.category||'other']=(r.errors[res.category||'other']||0)+1;r.achievements.currentStreak=0}
 
-  /* 關卡掌握度只計每一道關卡題的第一次完整作答，不因切換練習方式重複累加 */
+  /* 工作站掌握度只計每一道關卡題的第一次完整作答，不因切換練習方式重複累加 */
   if(activeLevelId&&!activeLevelScored){
     const ls=r.levels[activeLevelId]||(r.levels[activeLevelId]={attempts:0,correct:0,recent:[],mastered:false});
     ls.attempts++;if(res.ok)ls.correct++;ls.recent=(ls.recent||[]).concat(res.ok?1:0).slice(-5);activeLevelScored=true;
@@ -1417,7 +1515,7 @@ function makeLevelNumbers(id){
   }
 
   /* 極端情況：不要悄悄回傳不符合條件的最後候選題 */
-  console.warn(`[乘法探險島] Lv.${id} 出題條件連續 220 次未命中，改用安全退回題。`,{stage:stage.code,weak});
+  console.warn(`[乘法工坊] Lv.${id} 出題條件連續 220 次未命中，改用安全退回題。`,{stage:stage.code,weak});
 
   let fallback;
   if(id===1)fallback={a:6,b:7};
@@ -2225,7 +2323,7 @@ $('soundToggle').onclick=()=>{
 };
 
 $('resetRecordsBtn').onclick=()=>{
-  if(confirm('確定要清除全部學習紀錄嗎？')){
+  if(confirm('確定要清除全部工坊紀錄嗎？')){
     try{localStorage.removeItem(recordKey)}catch(e){}
     memoryRecords=null;
     attemptState={};

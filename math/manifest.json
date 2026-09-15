@@ -2,12 +2,12 @@
   "id": "./",
   "name": "數學探險島",
   "short_name": "數學探險島",
-  "description": "從乘法開始，逐步擴充除法、分數與更多兒童數學學習主題。",
+  "description": "跟著紫色魔法探險精靈，探索乘法工坊、除法海灣、分數森林與更多數學區域。",
   "lang": "zh-Hant",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#eef9ff",
+  "background_color": "#dff5ff",
   "theme_color": "#2563eb",
   "icons": [
     {

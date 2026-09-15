@@ -85,42 +85,131 @@ h1{font-size:clamp(34px,7vw,64px);margin:.1em 0}
 .guide-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 @media(max-width:640px){.device-grid{grid-template-columns:1fr}}
 
+
+.platform-hero{
+  position:relative;overflow:hidden;border-radius:28px;border:1px solid var(--line);
+  background:#dff5ff;box-shadow:0 16px 40px rgba(37,99,235,.10);
+}
+.platform-hero img{
+  display:block;width:100%;height:auto;aspect-ratio:16/8.8;object-fit:cover;object-position:center;
+}
+.platform-hero-copy{
+  position:absolute;left:18px;bottom:18px;max-width:min(520px,82%);
+  padding:16px 18px;border-radius:18px;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(7px);box-shadow:0 10px 30px rgba(15,23,42,.12)
+}
+.platform-hero-copy h1{font-size:clamp(28px,5vw,52px);margin:0 0 5px}
+.platform-hero-copy p{font-size:15px;line-height:1.65;margin:0;color:#52677e}
+.module-card{
+  display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--line);
+  border-radius:24px;overflow:hidden;box-shadow:0 12px 30px rgba(15,23,42,.06);
+  transition:transform .18s ease,box-shadow .18s ease
+}
+.module-card.ready:hover{transform:translateY(-3px);box-shadow:0 18px 36px rgba(15,23,42,.10)}
+.module-card img{width:100%;aspect-ratio:1/1;display:block;object-fit:cover}
+.module-card-body{padding:16px 17px 18px}
+.module-card h2{margin:5px 0 7px;font-size:23px}
+.module-card p{color:var(--muted);line-height:1.6;margin:0}
+.module-card.soon{opacity:.78}
+.module-status{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.world-note{
+  margin-top:20px;padding:15px 17px;background:rgba(255,255,255,.88);
+  border:1px solid var(--line);border-radius:16px;color:var(--muted);line-height:1.7
+}
+@media(max-width:640px){
+  .platform-hero-copy{position:static;max-width:none;border-radius:0;background:#fff;backdrop-filter:none}
+  .platform-hero img{aspect-ratio:4/3}
+}
+
+
+.platform-hero{position:relative}
+.platform-hero-copy{
+  position:absolute;left:24px;bottom:22px;max-width:320px;padding:0;border-radius:0;
+  background:transparent;box-shadow:none;backdrop-filter:none
+}
+.platform-wood-sign{
+  display:inline-block;padding:16px 22px 14px;border-radius:18px;
+  background:linear-gradient(180deg,#9b6435 0%,#7f4a25 100%);
+  border:4px solid #5b3418;
+  box-shadow:0 10px 26px rgba(57,33,14,.28), inset 0 2px 0 rgba(255,255,255,.18);
+  color:#fff7e8
+}
+.platform-wood-sign .mini-badge{
+  display:inline-block;margin-bottom:8px;padding:5px 10px;border-radius:999px;
+  background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.24);
+  color:#fff7e8;font-size:12px;font-weight:900
+}
+.platform-wood-sign h1{
+  margin:0;font-size:clamp(28px,4.8vw,50px);line-height:1.05;color:#fff8ec;
+  text-shadow:0 2px 0 rgba(77,43,17,.55)
+}
+.platform-hero-blurb{
+  margin-top:10px;padding:12px 14px;border-radius:14px;background:rgba(255,251,245,.92);
+  border:1px solid rgba(132,86,45,.18);color:#5f6775;font-size:15px;line-height:1.65;
+  box-shadow:0 8px 24px rgba(35,26,15,.10)
+}
+@media(max-width:640px){
+  .platform-hero-copy{left:14px;right:14px;bottom:14px;max-width:none}
+  .platform-wood-sign{padding:14px 16px}
+  .platform-hero-blurb{font-size:14px}
+}
+
+
+/* v8：首頁使用核定完整主圖，不再疊加任何標題卡 */
+.platform-hero{overflow:hidden}
+.platform-hero img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:auto!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+.platform-hero-copy,.platform-wood-sign,.platform-hero-blurb{display:none!important}
+
 </style>
 </head>
 <body>
 <header>
 <a href="../">← 回網站首頁</a>
-<strong>🏝️ 數學探險島</strong>
+<strong>🧭 數學探險島</strong>
 </header>
 <main>
-<section class="hero">
-<span class="badge">PWA 學習平台</span>
-<h1>🏝️ 數學探險島</h1>
-<p>從乘法開始，一座一座探索數學。每個主題保留自己的教學設計，但共用同一個平台、PWA 與未來的學習紀錄入口。</p>
+<section class="platform-hero">
+  <img src="./assets/platform/hero.webp" alt="數學探險島全景：乘法工坊、除法海灣、分數森林、中央羅盤、小路、可愛鯨魚、蘋果樹與紫色魔法探險精靈">
 </section>
 
-<section class="islands">
-<a class="island ready" href="./multiplication/">
-<div class="emoji">✖️</div>
-<span class="badge">已開放</span>
-<h2>乘法探險島</h2>
-<p>拆解、方格、直式動畫、位值軌道、關卡與正向鼓勵。</p>
-</a>
+<section class="islands" aria-label="數學主題區域">
+  <a class="module-card ready" href="./multiplication/">
+    <img src="./assets/multiplication/workshop.webp" alt="乘法工坊：冒煙煙囪、齒輪、乘法立牌與紫色小精靈">
+    <div class="module-card-body">
+      <div class="module-status"><span class="badge">已開放</span><span>🔧</span></div>
+      <h2>乘法工坊</h2>
+      <p>拆解、方格、直式動畫、位值軌道、關卡與正向鼓勵。工坊煙囪正冒著煙，等你來打造乘法技巧。</p>
+    </div>
+  </a>
 
-<div class="island soon">
-<div class="emoji">➗</div>
-<span class="badge">準備中</span>
-<h2>除法海灣</h2>
-<p>預留給除法概念、直式除法、餘數與分配模型。</p>
-</div>
+  <a class="module-card soon" href="./division/">
+    <img src="./assets/division/division-bay.webp" alt="除法海灣：碼頭、燈塔、除法立牌與可愛鯨魚">
+    <div class="module-card-body">
+      <div class="module-status"><span class="badge">準備中</span><span>🐳</span></div>
+      <h2>除法海灣</h2>
+      <p>可愛鯨魚守著海灣；未來將加入平均分配、包含除、餘數與直式除法。</p>
+    </div>
+  </a>
 
-<div class="island soon">
-<div class="emoji">🍰</div>
-<span class="badge">準備中</span>
-<h2>分數森林</h2>
-<p>預留給分數大小、等值分數、加減與視覺化模型。</p>
-</div>
+  <a class="module-card soon" href="./fractions/">
+    <img src="./assets/fractions/fraction-forest.webp" alt="分數森林：蘋果樹、野餐、分數立牌與紫色小精靈">
+    <div class="module-card-body">
+      <div class="module-status"><span class="badge">準備中</span><span>🍎</span></div>
+      <h2>分數森林</h2>
+      <p>從蘋果與野餐開始看懂「部分與整體」，未來加入等值分數、大小比較與分數運算。</p>
+    </div>
+  </a>
 </section>
+
+<div class="world-note">🧭 <b>世界觀：</b>大島中央的羅盤代表「探索、方向、成長」，小路把每個數學區域串在一起；同一隻紫色魔法探險精靈會陪孩子走進不同主題。</div>
 
 
 
