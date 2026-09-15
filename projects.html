@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>專案作品</title>
+<style>
+:root{--bg:#f7fbff;--ink:#16324f;--muted:#60758a;--card:#fff;--brand:#2563eb;--line:#dbeafe}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;background:linear-gradient(#eef8ff,#fff);color:var(--ink)}
+header{padding:18px 22px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+nav a{text-decoration:none;color:var(--ink);font-weight:800}
+nav a.brand{font-size:20px;color:var(--brand);margin-right:auto}
+main{max-width:980px;margin:auto;padding:42px 20px 70px}
+.hero{padding:34px;border-radius:24px;background:#fff;border:1px solid var(--line);box-shadow:0 12px 32px rgba(37,99,235,.08)}
+h1{font-size:clamp(32px,6vw,58px);margin:.15em 0}
+p{line-height:1.8;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:24px}
+.card{display:block;background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;text-decoration:none;color:inherit;box-shadow:0 8px 22px rgba(15,23,42,.05)}
+.card:hover{transform:translateY(-2px)}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-weight:800;font-size:13px}
+.button{display:inline-block;margin-top:10px;padding:12px 16px;border-radius:14px;background:var(--brand);color:white;text-decoration:none;font-weight:900}
+footer{text-align:center;color:#789;padding:30px}
+</style>
+</head>
+<body>
+<header><nav>
+<a class="brand" href="./index.html">首頁</a>
+<a href="./about.html">關於</a>
+<a href="./projects.html">專案</a>
+<a href="./contact.html">聯絡</a>
+<a href="./math/">🏝️ 數學探險島</a>
+</nav></header>
+<main>
+<section class="hero">
+<h1>專案作品</h1>
+<p>目前公開的學習專案：</p>
+<div class="grid">
+<a class="card" href="./math/">
+<span class="badge">進行中</span>
+<h2>🏝️ 數學探險島</h2>
+<p>以視覺化、位值理解、正向鼓勵與漸進式輔助為核心的兒童數學學習平台。</p>
+<p><strong>目前：</strong>乘法探險島已開放；除法與分數持續擴充。</p>
+</a>
+<a class="card" href="./math/docs/development-release-guide.png" target="_blank" rel="noopener">
+<span class="badge">文件</span>
+<h2>🛠️ 開發 / 發布說明</h2>
+<p>查看 GitHub Pages、PWA、Repository 結構，以及 Apple、Android、Windows、macOS 的安裝與發布流程圖解。</p>
+</a>
+</div>
+</section>
+</main>
+<footer>GitHub Pages</footer>
+</body></html>

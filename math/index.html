@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<title>🏝️ 數學探險島</title>
+<style>
+:root{--bg:#eef9ff;--ink:#16324f;--muted:#61758a;--line:#cfe8f8;--card:#fff;--blue:#2563eb}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;background:linear-gradient(180deg,#dff5ff,#fff7df);color:var(--ink)}
+header{padding:18px 20px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+header a{text-decoration:none;color:var(--ink);font-weight:900}
+main{max-width:1000px;margin:auto;padding:10px 20px 64px}
+.hero{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:28px;padding:30px;box-shadow:0 16px 40px rgba(37,99,235,.08)}
+h1{font-size:clamp(34px,7vw,64px);margin:.1em 0}
+.hero p{font-size:18px;line-height:1.8;color:var(--muted)}
+.islands{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:24px}
+.island{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px;min-height:190px;box-shadow:0 12px 30px rgba(15,23,42,.06)}
+.island .emoji{font-size:42px}
+.island h2{margin:8px 0}
+.island p{color:var(--muted);line-height:1.6}
+.island.ready{outline:3px solid rgba(37,99,235,.12)}
+.island.soon{opacity:.72}
+.badge{display:inline-block;padding:5px 10px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-weight:900;font-size:13px}
+.note{margin-top:22px;padding:14px 16px;background:#fff;border:1px solid var(--line);border-radius:16px;color:var(--muted)}
+
+.install-card{
+  margin-top:24px;background:#fff;border:1px solid var(--line);border-radius:22px;
+  padding:20px;box-shadow:0 10px 28px rgba(15,23,42,.05)
+}
+.install-card h2{margin:0 0 8px}
+.install-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.install-btn,.guide-link{
+  display:inline-flex;align-items:center;gap:7px;padding:11px 14px;border-radius:13px;
+  text-decoration:none;font-weight:900;border:0;cursor:pointer;font-size:15px
+}
+.install-btn{background:#2563eb;color:#fff}
+.guide-link{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}
+.install-panel{
+  display:none;margin-top:16px;padding:16px;border-radius:16px;background:#f8fbff;border:1px solid #dbeafe
+}
+.install-panel.open{display:block}
+.install-steps{
+  display:grid;grid-template-columns:repeat(4,minmax(150px,1fr));gap:10px;margin-top:12px
+}
+.install-step{
+  background:#fff;border:1px solid #dbeafe;border-radius:15px;padding:14px;min-height:130px
+}
+.install-step b{display:block;margin-bottom:8px;color:#1d4ed8}
+.install-step .num{
+  width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  background:#2563eb;color:#fff;font-weight:900;margin-bottom:8px
+}
+.install-note{margin-top:12px;color:var(--muted);line-height:1.7}
+@media(max-width:760px){
+  .install-steps{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .install-steps{grid-template-columns:1fr}
+}
+
+
+.install-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.install-tab{
+  border:1px solid #bfdbfe;background:#fff;color:#1d4ed8;padding:10px 13px;
+  border-radius:12px;font-weight:900;cursor:pointer;font-size:15px
+}
+.install-tab.active{background:#2563eb;color:#fff;border-color:#2563eb}
+.device-panel{display:none;margin-top:12px}
+.device-panel.active{display:block}
+.device-grid{display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:10px}
+.device-step{
+  background:#fff;border:1px solid #dbeafe;border-radius:15px;padding:14px;min-height:112px
+}
+.device-step .num{
+  width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  background:#2563eb;color:#fff;font-weight:900;margin-bottom:8px
+}
+.device-step b{display:block;margin-bottom:6px;color:#1d4ed8}
+.device-note{margin-top:10px;padding:11px 13px;border-radius:12px;background:#eff6ff;color:#475569}
+.guide-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+@media(max-width:640px){.device-grid{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<header>
+<a href="../">← 回網站首頁</a>
+<strong>🏝️ 數學探險島</strong>
+</header>
+<main>
+<section class="hero">
+<span class="badge">PWA 學習平台</span>
+<h1>🏝️ 數學探險島</h1>
+<p>從乘法開始，一座一座探索數學。每個主題保留自己的教學設計，但共用同一個平台、PWA 與未來的學習紀錄入口。</p>
+</section>
+
+<section class="islands">
+<a class="island ready" href="./multiplication/">
+<div class="emoji">✖️</div>
+<span class="badge">已開放</span>
+<h2>乘法探險島</h2>
+<p>拆解、方格、直式動畫、位值軌道、關卡與正向鼓勵。</p>
+</a>
+
+<div class="island soon">
+<div class="emoji">➗</div>
+<span class="badge">準備中</span>
+<h2>除法海灣</h2>
+<p>預留給除法概念、直式除法、餘數與分配模型。</p>
+</div>
+
+<div class="island soon">
+<div class="emoji">🍰</div>
+<span class="badge">準備中</span>
+<h2>分數森林</h2>
+<p>預留給分數大小、等值分數、加減與視覺化模型。</p>
+</div>
+</section>
+
+
+
+<section class="install-card">
+  <h2>📲 把數學探險島裝到你的裝置</h2>
+  <p>不安裝也能直接用瀏覽器玩；安裝後會更像 App，啟動更方便，而且可使用已快取的離線內容。</p>
+
+  <div class="install-tabs" role="tablist" aria-label="裝置安裝方式">
+    <button class="install-tab active" data-target="panelApple" type="button">🍎 iPhone / iPad</button>
+    <button class="install-tab" data-target="panelAndroid" type="button">🤖 Android</button>
+    <button class="install-tab" data-target="panelDesktop" type="button">💻 電腦</button>
+  </div>
+
+  <div class="device-panel active" id="panelApple">
+    <div class="device-grid">
+      <div class="device-step"><span class="num">1</span><b>用 Safari 開啟</b>在 iPhone / iPad 用 Safari 開啟目前的 <code>/math/</code> 網址。</div>
+      <div class="device-step"><span class="num">2</span><b>點「分享」</b>點 Safari 工具列的分享按鈕（方框向上箭頭）。</div>
+      <div class="device-step"><span class="num">3</span><b>選「加入主畫面」</b>在分享選單中向下滑，選擇「加入主畫面」。</div>
+      <div class="device-step"><span class="num">4</span><b>點「加入」</b>名稱可保留「數學探險島」，完成後可從主畫面直接啟動。</div>
+    </div>
+    <div class="device-note">建議從 <b>/math/ 平台首頁</b> 安裝，而不是從乘法子頁單獨建立捷徑。</div>
+    <div class="guide-row"><a class="guide-link" href="./docs/install-ios-ipados.png" target="_blank" rel="noopener">🖼️ Apple 圖解</a></div>
+  </div>
+
+  <div class="device-panel" id="panelAndroid">
+    <div class="device-grid">
+      <div class="device-step"><span class="num">1</span><b>用 Chrome 開啟</b>在 Android 手機或平板用 Chrome 開啟 <code>/math/</code>。</div>
+      <div class="device-step"><span class="num">2</span><b>開啟 Chrome 選單</b>點右上角「⋮」選單。</div>
+      <div class="device-step"><span class="num">3</span><b>安裝應用程式</b>選擇「安裝應用程式」；部分版本可能顯示「加到主畫面」。</div>
+      <div class="device-step"><span class="num">4</span><b>確認安裝</b>完成後，數學探險島會出現在應用程式清單或主畫面。</div>
+    </div>
+    <div class="device-note">不同 Android / Chrome 版本文字可能略有差異；看到「安裝」或「加到主畫面」即可。</div>
+    <div class="guide-row"><a class="guide-link" href="./docs/install-android.png" target="_blank" rel="noopener">🖼️ Android 圖解</a></div>
+  </div>
+
+  <div class="device-panel" id="panelDesktop">
+    <div class="device-grid">
+      <div class="device-step"><span class="num">1</span><b>Windows</b>建議用 Microsoft Edge 開啟 <code>/math/</code>。</div>
+      <div class="device-step"><span class="num">2</span><b>Edge 安裝</b>點網址列安裝圖示，或從「⋯ → 應用程式」安裝此網站為應用程式。</div>
+      <div class="device-step"><span class="num">3</span><b>Chrome</b>Windows / macOS 也可用 Chrome，從選單尋找「安裝應用程式」或安裝圖示。</div>
+      <div class="device-step"><span class="num">4</span><b>macOS</b>可用 Chrome 安裝；Safari 也可將網站加入 Dock（實際名稱依 macOS 版本而異）。</div>
+    </div>
+    <div class="device-note">電腦不一定要安裝，直接用瀏覽器也能完整使用；安裝後主要優點是獨立視窗、開始功能表 / Dock 啟動更方便。</div>
+    <div class="guide-row"><a class="guide-link" href="./docs/install-desktop.png" target="_blank" rel="noopener">🖼️ 電腦圖解</a></div>
+  </div>
+
+  <div class="guide-row">
+    <a class="guide-link" href="./docs/installation-overview.png" target="_blank" rel="noopener">🌐 開啟跨平台安裝總覽</a>
+  </div>
+</section>
+
+
+</main>
+
+
+
+<script>
+(() => {
+  const tabs = [...document.querySelectorAll('.install-tab')];
+  const panels = [...document.querySelectorAll('.device-panel')];
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.toggle('active', t === tab));
+      panels.forEach(p => p.classList.toggle('active', p.id === tab.dataset.target));
+    });
+  });
+})();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js', {scope:'./'})
+      .catch(err => console.warn('[數學探險島] Service Worker 註冊失敗：', err));
+  });
+}
+</script>
+</body></html>
