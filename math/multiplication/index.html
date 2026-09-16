@@ -511,6 +511,61 @@ body.standard-ui .carrycell{font-size:19px}
 .teacher-diag div{margin-top:3px}
 @media(max-width:640px){.resume-card{align-items:stretch}.resume-actions{width:100%}.resume-actions button{flex:1}}
 
+
+
+/* ===== V9.1：學習摘要 + 工作站完成感 ===== */
+.learning-summary-card{
+  margin-top:16px;padding:18px;border:2px solid #c7d2fe;border-radius:18px;
+  background:linear-gradient(180deg,#f8fbff 0%,#f5f3ff 100%);
+}
+.learning-summary-card h3{margin:0 0 12px}
+.learning-summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.learning-summary-item{padding:13px 14px;border:1px solid #dbe4f0;border-radius:14px;background:rgba(255,255,255,.92)}
+.learning-summary-item .summary-label{font-size:13px;color:var(--muted);font-weight:800;margin-bottom:5px}
+.learning-summary-item .summary-value{font-size:19px;font-weight:900;color:#334155;line-height:1.45}
+.learning-summary-note{margin-top:12px;font-size:13px;color:var(--muted);line-height:1.7}
+.learning-summary-teacher{margin-top:12px;padding:11px 13px;border-radius:12px;background:#fff;border:1px dashed #94a3b8;font-size:13px;line-height:1.75}
+@media(max-width:680px){.learning-summary-grid{grid-template-columns:1fr}}
+
+.workshop-progress-box{margin-top:12px;padding:11px 13px;border-radius:14px;background:#fff;border:1px solid #bfdbfe}
+.workshop-progress-head{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:14px;font-weight:900}
+.workshop-progress-track{height:12px;border-radius:999px;background:#e5e7eb;overflow:hidden;margin-top:8px}
+.workshop-progress-track>div{height:100%;width:0;background:linear-gradient(90deg,#d69a43,#f3bf62);transition:width .25s ease}
+
+.level-card.mastered{border-color:#d9a441!important;background:#fffaf0!important}
+.level-card.mastered.current{border-color:#d69a43!important;background:#fff8e8!important;box-shadow:0 0 0 4px rgba(214,154,67,.13)!important}
+.level-status-stack{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.level-status-badge{font-size:13px;font-weight:900;padding:5px 9px;border-radius:999px;background:#eef2f7;white-space:nowrap}
+.level-status-badge.locked{background:#eef2f7;color:#64748b}
+.level-status-badge.enabled{background:#e0f2fe;color:#075985}
+.level-status-badge.current{background:#dbeafe;color:#1d4ed8}
+.level-status-badge.done{background:#fff1bf;color:#7c4a13;border:1px solid #e8b64f}
+.level-card.mastered .level-progress>div{background:linear-gradient(90deg,#d69a43,#f3bf62)!important}
+
+.station-celebration{
+  position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;
+  pointer-events:none;opacity:0;visibility:hidden;transition:opacity .22s ease,visibility .22s ease;
+  padding:20px;
+}
+.station-celebration.show{opacity:1;visibility:visible}
+.station-celebration-card{
+  width:min(90vw,560px);padding:22px 24px 24px;border-radius:26px;text-align:center;
+  background:linear-gradient(180deg,rgba(255,250,226,.98),rgba(255,237,190,.98));
+  border:4px solid #9a622d;box-shadow:0 24px 70px rgba(65,39,20,.28),inset 0 2px 0 rgba(255,255,255,.72);
+  transform:scale(.88);transition:transform .28s cubic-bezier(.2,.9,.3,1.15);
+}
+.station-celebration.show .station-celebration-card{transform:scale(1)}
+.station-celebration-card img{width:96px;height:96px;border-radius:50%;object-fit:cover;border:4px solid #d89b3c;box-shadow:0 8px 20px rgba(76,43,21,.18)}
+.station-complete-badge{display:inline-block;margin-top:10px;padding:6px 12px;border-radius:999px;background:#f7c95f;border:2px solid #9a622d;color:#6b3d16;font-weight:900}
+.station-celebration-title{font-size:34px;font-weight:1000;color:#75411e;margin-top:8px}
+.station-celebration-name{font-size:22px;font-weight:900;color:#5f432e;margin-top:5px}
+.station-celebration-next{font-size:15px;font-weight:800;color:#76583d;margin-top:8px;line-height:1.6}
+@media(max-width:640px){
+  .station-celebration-card{padding:18px 16px 20px}
+  .station-celebration-card img{width:78px;height:78px}
+  .station-celebration-title{font-size:28px}.station-celebration-name{font-size:19px}
+}
+
 </style>
 <meta name="theme-color" content="#2563eb">
 <meta name="mobile-web-app-capable" content="yes">
@@ -520,6 +575,15 @@ body.standard-ui .carrycell{font-size:19px}
 <body class="kid">
 <canvas id="confettiCanvas" aria-hidden="true"></canvas>
 <div id="rewardToast" class="reward-toast" role="status" aria-live="polite"></div>
+<div id="stationCelebration" class="station-celebration" role="status" aria-live="polite" aria-atomic="true">
+  <div class="station-celebration-card">
+    <img src="../assets/multiplication/mascot-workshop.webp" alt="">
+    <div class="station-complete-badge">🏅 已完成</div>
+    <div class="station-celebration-title">工作站完成！</div>
+    <div class="station-celebration-name" id="stationCelebrationName"></div>
+    <div class="station-celebration-next" id="stationCelebrationNext"></div>
+  </div>
+</div>
 <div class="wrap">
   <a class="workshop-back" href="../">← 返回 🧭 數學探險島</a>
   <section class="workshop-brand-hero">
@@ -702,6 +766,10 @@ body.standard-ui .carrycell{font-size:19px}
           <button class="primary" id="mapChallengeBtn">開始目前工作站</button>
         </div>
         <div class="map-path" id="mapPath"></div>
+        <div class="workshop-progress-box">
+          <div class="workshop-progress-head"><span id="workshopProgressText">工坊進度：0 / 7 個工作站完成</span><span id="workshopProgressPct">0%</span></div>
+          <div class="workshop-progress-track"><div id="workshopProgressBar"></div></div>
+        </div>
         <div class="level-unlock-banner" id="levelUnlockBanner"></div>
       </div>
       <div class="level-map" id="levelMap"></div>
@@ -727,6 +795,18 @@ body.standard-ui .carrycell{font-size:19px}
         <div class="stat"><div class="label">一次就答對</div><div class="num" id="statCorrect">0</div></div>
         <div class="stat"><div class="label">一次答對率</div><div class="num" id="statRate">0%</div></div>
         <div class="stat"><div class="label">最佳連續完成</div><div class="num" id="statBestStreak">0</div></div>
+      </div>
+
+      <div class="learning-summary-card" id="learningSummaryCard">
+        <h3>📊 我的學習摘要</h3>
+        <div class="learning-summary-grid">
+          <div class="learning-summary-item"><div class="summary-label">最近第一次答對率</div><div class="summary-value" id="summaryFirstRate">完成幾題後就會出現</div></div>
+          <div class="learning-summary-item"><div class="summary-label">最近最常卡在</div><div class="summary-value" id="summaryWeakness">目前資料還不夠</div></div>
+          <div class="learning-summary-item"><div class="summary-label">最近表現</div><div class="summary-value" id="summaryTrend">先累積一些練習紀錄</div></div>
+          <div class="learning-summary-item"><div class="summary-label">🎯 建議練習</div><div class="summary-value" id="summaryPractice">先完成幾題練習</div></div>
+        </div>
+        <div class="learning-summary-note" id="summaryNote">摘要只使用每題第一次檢查的結果；訂正成功不會回頭改變第一次答對率。</div>
+        <div class="learning-summary-teacher teacher-only" id="summaryTeacherDetail"></div>
       </div>
       <div class="card" style="box-shadow:none;margin-top:16px">
         <h3>🏅 我的工坊徽章</h3><div class="medal-wall" id="medalWall"></div>
@@ -988,7 +1068,8 @@ function currentLevelId(r){
 }
 function evaluateLevelUnlock(r){
   const u=Math.max(1,Number(r.achievements.unlockedLevel)||1),info=levelProgressInfo(r,u);
-  if(!info.ready)return null;
+  /* 已完成的最後工作站不可重複觸發大型完成慶祝。 */
+  if(info.st.mastered||!info.ready)return null;
   r.levels[u].mastered=true;
   if(u>=levelDefs.length)return {completed:true,level:levelDef(u)};
   const next=u+1;r.achievements.unlockedLevel=next;r.achievements.currentLevel=next;
@@ -1004,21 +1085,45 @@ function renderLevelUI(){
   if($('currentLevelName'))$('currentLevelName').textContent=cur.name;
   if($('mapCurrentTitle'))$('mapCurrentTitle').textContent=`目前：Lv.${c} ${cur.icon} ${cur.name}`;
   if($('mapCurrentGoal'))$('mapCurrentGoal').textContent=cur.goal;
+
+  const completedCount=levelDefs.filter(l=>{
+    const info=levelProgressInfo(r,l.id);
+    return !!info.st.mastered||l.id<u;
+  }).length;
+  const progressPct=Math.round(completedCount/levelDefs.length*100);
+  if($('workshopProgressText'))$('workshopProgressText').textContent=`工坊進度：${completedCount} / ${levelDefs.length} 個工作站完成`;
+  if($('workshopProgressPct'))$('workshopProgressPct').textContent=`${progressPct}%`;
+  if($('workshopProgressBar'))$('workshopProgressBar').style.width=`${progressPct}%`;
+
   if($('mapPath'))$('mapPath').innerHTML=levelDefs.map((l,i)=>{
     const info=levelProgressInfo(r,l.id),mastered=info.st.mastered||l.id<u,unlocked=l.id<=u;
     return `${i?'<span class="map-arrow">→</span>':''}<span class="map-node ${unlocked?'unlocked':''} ${l.id===c?'current':''} ${mastered?'mastered':''}" title="${l.name}">${mastered?'✓':(unlocked?l.id:'🔒')}</span>`;
   }).join('');
+
   if($('levelMap'))$('levelMap').innerHTML=levelDefs.map(l=>{
     const info=levelProgressInfo(r,l.id),unlocked=l.id<=u,mastered=info.st.mastered||l.id<u,current=l.id===c;
-    const status=mastered?'已完成':current?'目前工作站':unlocked?'已啟用':'尚未啟用';
     const stage=levelStageInfo(l.id,info.st.attempts);
+    let badges='';
+    if(!unlocked)badges='<span class="level-status-badge locked">🔒 尚未啟用</span>';
+    else{
+      if(mastered)badges+='<span class="level-status-badge done">🏅 已完成</span>';
+      if(current)badges+=`<span class="level-status-badge current">🔧 ${mastered?'再次練習中':'練習中'}</span>`;
+      else if(!mastered)badges+='<span class="level-status-badge enabled">已啟用</span>';
+    }
+    let action='';
+    if(!unlocked)action='<button class="ghost" disabled>🔒 先完成前一站</button>';
+    else if(mastered&&current)action=`<button class="primary" data-level-select="${l.id}">再練一次</button>`;
+    else if(mastered)action=`<button class="ghost" data-level-select="${l.id}">再練一次</button>`;
+    else if(current)action=`<button class="primary" data-level-select="${l.id}">繼續練習</button>`;
+    else action=`<button class="ghost" data-level-select="${l.id}">選擇這一站</button>`;
+
     return `<div class="level-card ${current?'current':''} ${mastered?'mastered':''} ${!unlocked?'locked':''}">
-      <div class="level-head"><div class="row" style="align-items:flex-start"><span class="level-icon">${unlocked?l.icon:'🔒'}</span><div><h3>Lv.${l.id} ${l.name}</h3><div class="level-sub">${l.goal}</div></div></div><span class="level-status">${status}</span></div>
+      <div class="level-head"><div class="row" style="align-items:flex-start"><span class="level-icon">${unlocked?l.icon:'🔒'}</span><div><h3>Lv.${l.id} ${l.name}</h3><div class="level-sub">${l.goal}</div></div></div><div class="level-status-stack">${badges}</div></div>
       ${unlocked&&!mastered?`<div class="level-stage">${stage.label}｜${stage.desc}</div>`:''}
       <div class="level-progress"><div style="width:${mastered?100:info.pct}%"></div></div>
       <div class="level-metrics"><span>有效題數 <b>${info.st.attempts}</b>/5+</span><span>近5題 <b>${info.recentCorrect}</b>/5</span><span>連續完成 <b>${info.run}</b>/3</span></div>
       <div class="level-rule">啟用下一站：至少 5 題、近 5 題至少 4 題第一次答對、其中至少 3 題連續完成。</div>
-      <div class="level-actions">${unlocked?`<button class="${current?'primary':'ghost'}" data-level-select="${l.id}">${current?'開始這一站':'選擇這一站'}</button>`:'<button class="ghost" disabled>🔒 先完成前一站</button>'}</div>
+      <div class="level-actions">${action}</div>
     </div>`;
   }).join('');
   document.querySelectorAll('[data-level-select]').forEach(b=>b.onclick=()=>{setCurrentLevel(Number(b.dataset.levelSelect));generateLevelProblem(Number(b.dataset.levelSelect))});
@@ -1163,16 +1268,16 @@ function launchConfetti(kind){
   canvas.width=w*dpr;canvas.height=h*dpr;canvas.style.width=w+'px';canvas.style.height=h+'px';
   ctx.setTransform(dpr,0,0,dpr,0,0);
 
-  /* 內部規格：粉／奶油／薄荷／天藍；勳章 170、一次答對 95、訂正 45 */
-  const colors=['#F7A8B8','#FFF0C9','#A7E8D3','#A9D6F5'];
-  const count=kind==='medal'?170:(kind==='corrected'?45:95);
+  /* 內部規格：工作站完成 > 勳章 > 一次答對 > 訂正 */
+  const colors=['#F7A8B8','#FFF0C9','#A7E8D3','#A9D6F5','#F7C95F'];
+  const count=kind==='station'?250:(kind==='medal'?170:(kind==='corrected'?45:95));
   const gravity=.16,drag=.993,parts=[];
 
   /* 從回饋框的位置噴發；若框不在視窗內，退回畫面中央偏下 */
   const box=$('practiceFeedback');
   const rect=box?box.getBoundingClientRect():null;
-  let ox=rect&&rect.width?rect.left+rect.width/2:w/2;
-  let oy=rect&&rect.height?rect.top+Math.min(rect.height*.55,54):h*.58;
+  let ox=kind==='station'?w/2:(rect&&rect.width?rect.left+rect.width/2:w/2);
+  let oy=kind==='station'?h*.60:(rect&&rect.height?rect.top+Math.min(rect.height*.55,54):h*.58);
   if(oy<20||oy>h-20)oy=h*.58;
   ox=Math.max(24,Math.min(w-24,ox));
   oy=Math.max(30,Math.min(h-30,oy));
@@ -1237,6 +1342,20 @@ function showRewardToast(message,meta){
   t.classList.add('show');
   clearTimeout(rewardTimer);
   rewardTimer=setTimeout(()=>t.classList.remove('show'),2600);
+}
+function showStationCelebration(levelEvent){
+  if(!levelEvent)return;
+  const completedLevel=levelEvent.completed?levelEvent.level:levelEvent.from;
+  if(!completedLevel)return;
+  const box=$('stationCelebration');if(!box)return;
+  $('stationCelebrationName').textContent=`Lv.${completedLevel.id} ${completedLevel.icon} ${completedLevel.name}`;
+  $('stationCelebrationNext').textContent=levelEvent.completed
+    ?'🏆 你完成了全部工作站！'
+    :`🔓 新工作站已啟用：Lv.${levelEvent.level.id} ${levelEvent.level.icon} ${levelEvent.level.name}`;
+  launchConfetti('station');
+  playPositiveSound('medal');
+  box.classList.add('show');
+  setTimeout(()=>box.classList.remove('show'),3200);
 }
 function showMicroReward(target,message,key){
   if(!target||microRewardState.has(key))return;
@@ -1573,18 +1692,18 @@ function setupAreaMicroRewards(aParts,bRows){
 function celebrate(event){
   if(!event||event.none)return;
   const a=getRecords().achievements;
-  const levelMsg=event.newLevel?(event.newLevel.completed?'　💎 全部關卡完成！':`　🗺️ 解鎖 Lv.${event.newLevel.level.id} ${event.newLevel.level.name}`):'';
-  const major=(event.newMedals&&event.newMedals.length)||event.newLevel;
+  const hasMedal=!!(event.newMedals&&event.newMedals.length);
 
+  /* 單題答對鼓勵永遠保留；工作站完成另外延後顯示，不與單題訊息搶畫面。 */
   if(event.firstCorrect){
-    launchConfetti(major?'medal':'first');
-    playPositiveSound(major?'medal':'success');
-    const mt=event.newMedals&&event.newMedals.length?`　新勳章：${event.newMedals.map(m=>m.icon+' '+m.name).join('、')}`:'';
-    showRewardToast(pickEncouragement('first'),`🔥 連續完成 ${a.currentStreak} 題${mt}${levelMsg}`);
+    launchConfetti(hasMedal?'medal':'first');
+    playPositiveSound(hasMedal?'medal':'success');
+    const mt=hasMedal?`　新勳章：${event.newMedals.map(m=>m.icon+' '+m.name).join('、')}`:'';
+    showRewardToast(pickEncouragement('first'),`🔥 連續完成 ${a.currentStreak} 題${mt}`);
   }else if(event.corrected){
-    launchConfetti((event.newMedals&&event.newMedals.length)?'medal':'corrected');
-    playPositiveSound((event.newMedals&&event.newMedals.length)?'medal':'corrected');
-    const mt=event.newMedals&&event.newMedals.length?`　新勳章：${event.newMedals.map(m=>m.icon+' '+m.name).join('、')}`:'';
+    launchConfetti(hasMedal?'medal':'corrected');
+    playPositiveSound(hasMedal?'medal':'corrected');
+    const mt=hasMedal?`　新勳章：${event.newMedals.map(m=>m.icon+' '+m.name).join('、')}`:'';
     showRewardToast(pickEncouragement('corrected'),`修正完成${mt}`);
   }
 
@@ -1595,6 +1714,11 @@ function celebrate(event){
       :`⚙️ 新工作站啟用：Lv.${event.newLevel.level.id} ${event.newLevel.level.icon} ${event.newLevel.level.name}`;
   }
   updateAchievementUI();
+
+  /* 第一次完成工作站：等單題答對訊息結束後，再播放較大的完成慶祝。 */
+  if(event.firstCorrect&&event.newLevel){
+    setTimeout(()=>showStationCelebration(event.newLevel),2850);
+  }
 }
 
 /* 同一題同一模式只記一次成績；之後只累加重試次數 */
@@ -1650,11 +1774,77 @@ function getAdaptiveRecommendation(){
   return {category,text:`${map[category]}（最近 ${recent.length} 次錯誤中，此類有 ${count} 次）`};
 }
 
+function learningPracticeLabel(category){
+  return {
+    basic:'九九乘法與單位數乘法',
+    carry:'單位數乘法進位',
+    place:'十位乘數與部分積左移',
+    position:'直式對位練習',
+    addition:'部分積相加',
+    other:'綜合挑戰',
+    mixed:'綜合挑戰'
+  }[category]||'綜合挑戰';
+}
+function learningSummary(r){
+  const hist=(r.history||[]).slice(0,10);
+  const n=hist.length;
+  if(!n){
+    return {n:0,rateText:'完成幾題後就會出現',weakText:'目前資料還不夠',trendText:'先累積一些練習紀錄',practiceText:'先完成幾題練習',teacher:'目前尚無可分析的作答紀錄。'};
+  }
+  const correct=hist.reduce((s,h)=>s+(h.ok?1:0),0);
+  const rate=Math.round(correct/n*100);
+  const rateText=`最近 ${n} 題：${correct}/${n}（${rate}%）`;
+
+  const counts={basic:0,carry:0,place:0,addition:0,position:0,other:0};
+  hist.filter(h=>!h.ok).forEach(h=>{const c=h.category in counts?h.category:'other';counts[c]++});
+  const ranked=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const max=ranked[0][1];
+  const top=ranked.filter(x=>x[1]===max&&x[1]>0);
+  let category='mixed',weakText='資料還在累積',practiceText='先多做幾題';
+  if(n>=5){
+    if(max===0){
+      weakText='最近沒有明顯固定錯誤';
+      practiceText=rate>=80?'綜合挑戰':'基礎綜合練習';
+    }else if(top.length===1){
+      category=top[0][0];
+      weakText=errorLabel(category);
+      practiceText=learningPracticeLabel(category);
+    }else{
+      weakText=`錯誤型態較分散（${top.map(x=>errorLabel(x[0])).join('、')}）`;
+      practiceText='綜合挑戰';
+    }
+  }
+
+  let trendText='再累積到 10 題，就能比較最近表現';
+  let trendTeacher='';
+  if(n>=10){
+    const recent5=hist.slice(0,5).reduce((s,h)=>s+(h.ok?1:0),0);
+    const prev5=hist.slice(5,10).reduce((s,h)=>s+(h.ok?1:0),0);
+    const diff=recent5-prev5;
+    if(diff>=2)trendText='📈 最近更穩定了！';
+    else if(diff<=-2)trendText='💡 最近有些地方需要再練習';
+    else trendText='表現大致穩定';
+    trendTeacher=`前 5 題：${prev5}/5；最近 5 題：${recent5}/5；差異：${diff>0?'+':''}${diff}。`;
+  }
+  const errorTeacher=Object.entries(counts).filter(([,v])=>v>0).map(([k,v])=>`${errorLabel(k)} ${v}`).join('、')||'無';
+  const teacher=`最近 ${n} 題第一次答對：${correct}/${n}。主要錯誤統計：${errorTeacher}。${trendTeacher}`;
+  return {n,rateText,weakText,trendText,practiceText,teacher};
+}
+function renderLearningSummary(r){
+  const s=learningSummary(r);
+  if($('summaryFirstRate'))$('summaryFirstRate').textContent=s.rateText;
+  if($('summaryWeakness'))$('summaryWeakness').textContent=s.weakText;
+  if($('summaryTrend'))$('summaryTrend').textContent=s.trendText;
+  if($('summaryPractice'))$('summaryPractice').textContent=s.practiceText;
+  if($('summaryTeacherDetail'))$('summaryTeacherDetail').textContent=`教師摘要：${s.teacher}`;
+}
+
 function renderRecords(){
   const r=getRecords();
   $('statAttempts').textContent=r.attempts;
   $('statCorrect').textContent=r.correct;
   $('statRate').textContent=r.attempts?Math.round(r.correct/r.attempts*100)+'%':'0%';
+  renderLearningSummary(r);
   updateAchievementUI();
 
   const maxErr=Math.max(1,...Object.values(r.errors));
