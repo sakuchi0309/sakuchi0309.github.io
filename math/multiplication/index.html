@@ -390,22 +390,43 @@ body.standard-ui .carrycell{font-size:19px}
 }
 
 
-/* ===== v7：乘法工坊獎勵視覺 ===== */
+/* ===== v8.1：只修正獎勵訊息遮字 ===== */
 .reward-toast{
   background:linear-gradient(180deg,#fff7df 0%,#f5dfb6 100%)!important;
   border:4px solid #80502b!important;border-radius:22px!important;
   box-shadow:0 18px 50px rgba(83,50,25,.28), inset 0 2px 0 rgba(255,255,255,.65)!important;
-  color:#5b361f!important;padding:15px 20px 15px 78px!important;text-align:left!important;
-  min-height:74px
+  color:#5b361f!important;
+  display:grid!important;
+  grid-template-columns:60px minmax(0,1fr);
+  align-items:center;
+  column-gap:14px;
+  padding:14px 20px!important;
+  text-align:left!important;
+  min-height:82px
 }
-.reward-toast::before{
-  content:"";position:absolute;left:13px;top:50%;transform:translateY(-50%);
-  width:52px;height:52px;border-radius:50%;
+.reward-toast::before{display:none!important;content:none!important}
+.reward-toast .toast-avatar{
+  width:60px;height:60px;border-radius:50%;
   background:url('../assets/multiplication/mascot-workshop.webp') center/cover no-repeat;
   border:3px solid #d89b3c;box-shadow:0 3px 10px rgba(76,43,21,.20)
 }
-.reward-toast .big{color:#7a431d!important;font-size:26px!important}
-.reward-toast .meta{color:#7b5a3e!important}
+.reward-toast .toast-body{min-width:0}
+.reward-toast .big{
+  display:block;color:#7a431d!important;font-size:26px!important;
+  margin:0 0 3px 0;word-break:break-word;overflow-wrap:anywhere
+}
+.reward-toast .meta{
+  display:block;color:#7b5a3e!important;
+  margin:0;word-break:break-word;overflow-wrap:anywhere
+}
+@media(max-width:640px){
+  .reward-toast{
+    grid-template-columns:52px minmax(0,1fr);
+    column-gap:12px;padding:13px 15px!important
+  }
+  .reward-toast .toast-avatar{width:52px;height:52px}
+  .reward-toast .big{font-size:22px!important}
+}
 .medal-wall{gap:10px!important}
 .medal-tag{
   border-radius:14px!important;background:linear-gradient(#f7ead0,#ecd09b)!important;
@@ -429,6 +450,67 @@ body.standard-ui .carrycell{font-size:19px}
   border:3px solid #8d5b2f!important;color:#6b401e!important
 }
 
+
+/* ===== v8.2：獎勵訊息改為「頭像在上、文字在下」 ===== */
+#rewardToast{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:8px!important;
+  text-align:center!important;
+  padding:14px 22px 16px!important;
+  min-height:112px!important;
+}
+#rewardToast::before{display:none!important;content:none!important}
+#rewardToast .toast-avatar-img{
+  display:block!important;
+  width:64px!important;
+  height:64px!important;
+  flex:0 0 64px!important;
+  border-radius:50%!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  border:3px solid #d89b3c!important;
+  box-shadow:0 4px 12px rgba(76,43,21,.20)!important;
+  margin:0 auto 2px!important;
+}
+#rewardToast .toast-body{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+}
+#rewardToast .big{
+  display:block!important;
+  margin:0!important;
+  text-align:center!important;
+}
+#rewardToast .meta{
+  display:block!important;
+  margin-top:5px!important;
+  text-align:center!important;
+}
+@media(max-width:640px){
+  #rewardToast{padding:12px 16px 14px!important;gap:7px!important}
+  #rewardToast .toast-avatar-img{
+    width:56px!important;height:56px!important;flex-basis:56px!important
+  }
+}
+
+
+/* ===== V9.0：精準診斷 / 繼續練習 / 基本觸控輸入 ===== */
+.resume-card{
+  display:none;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  margin:14px 0 16px;padding:14px 16px;border:2px solid #bfdbfe;border-radius:18px;
+  background:linear-gradient(135deg,#eff6ff,#f8fbff);box-shadow:0 8px 24px rgba(37,99,235,.08)
+}
+.resume-card.show{display:flex}.resume-copy{min-width:220px;flex:1}.resume-title{font-weight:900;font-size:18px;color:#1e3a8a}.resume-meta{margin-top:4px;color:#475569;font-weight:700}.resume-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+/* V9.0.1：按「檢查」後只顯示文字診斷，不額外高亮答案格。 */
+.teacher-diag{margin-top:8px;padding-top:8px;border-top:1px dashed rgba(100,116,139,.35);font-weight:700}
+.teacher-diag div{margin-top:3px}
+@media(max-width:640px){.resume-card{align-items:stretch}.resume-actions{width:100%}.resume-actions button{flex:1}}
+
 </style>
 <meta name="theme-color" content="#2563eb">
 <meta name="mobile-web-app-capable" content="yes">
@@ -441,12 +523,23 @@ body.standard-ui .carrycell{font-size:19px}
 <div class="wrap">
   <a class="workshop-back" href="../">← 返回 🧭 數學探險島</a>
   <section class="workshop-brand-hero">
-    <img src="../assets/multiplication/workshop.webp" alt="乘法工坊：冒煙煙囪、齒輪、乘法立牌與紫色魔法探險精靈">
+    <img src="../assets/multiplication/workshop-interior.webp" alt="乘法工坊內部配置圖：溫暖木作教室、算式黑板、操作桌、教具與漂浮紫色小精靈">
     <div class="workshop-brand-copy">
       <div class="workshop-wood-title"><span>🔧</span><strong>乘法工坊</strong></div>
       
     </div>
   </section>
+
+  <div class="resume-card" id="resumeCard" aria-live="polite">
+    <div class="resume-copy">
+      <div class="resume-title" id="resumeTitle">🔧 上次練到這裡</div>
+      <div class="resume-meta" id="resumeMeta"></div>
+    </div>
+    <div class="resume-actions">
+      <button class="primary" id="resumeBtn" type="button">繼續練習</button>
+      <button class="ghost" id="resumeDismissBtn" type="button">重新選擇</button>
+    </div>
+  </div>
 
   <div class="card">
     <div class="row">
@@ -486,15 +579,16 @@ body.standard-ui .carrycell{font-size:19px}
       <div class="reward-chip medal">🏅 <span id="medalNow">準備出發</span></div>
       <div class="reward-chip level-chip">⚙️ <strong id="currentLevelChip">Lv.1</strong> <span id="currentLevelName">暖身工作台</span></div>
       <button class="ghost" id="soundToggle" type="button" aria-pressed="true">🔊 音效：開</button>
+      <button class="ghost" id="resetPrefsBtn" type="button" title="只重置操作設定，不會清除學習紀錄">↺ 重置設定</button>
     </div>
-    <div class="touch-tip note">觸控裝置已放大輸入格與按鈕；橫向直式區可直接用手指滑動。</div>
+    <div class="touch-tip note">觸控裝置已放大輸入格與按鈕，輸入數字後會自然移到下一個輸入格。</div>
   </div>
 
   <div class="tabs">
     <button class="tab active" data-tab="concept">概念</button>
     <button class="tab" data-tab="decompose">拆解</button>
     <button class="tab" data-tab="vertical">直式動畫</button>
-    <button class="tab" data-tab="practice">自己來</button>
+    <button class="tab" data-tab="practice">自我挑戰</button>
     <button class="tab" data-tab="map">工坊進度</button>
     <button class="tab" data-tab="records">工坊紀錄</button>
   </div>
@@ -560,7 +654,7 @@ body.standard-ui .carrycell{font-size:19px}
   <div class="panel" id="practice">
     <div class="grid2">
       <div class="card">
-        <h2>4. 自己來</h2>
+        <h2>4. 自我挑戰</h2>
         <div class="badge">目前題目與上方同步</div>
         <div id="practiceQuestion" class="answer"></div>
         <div class="modebar">
@@ -669,12 +763,15 @@ let attemptState={},storageOK=true,soundEnabled=true,audioCtx=null,rewardTimer=n
 let activeQuestionId='',lastRenderedQuestionId='';
 let activeLevelId=null,activeLevelQuestionId='',activeLevelScored=false,lastUnlockedLevel=null;
 let carryAssistMode='auto';
+let diagnosisActive=false;
 
 const $=id=>document.getElementById(id);
 const clamp=n=>Math.max(1,Math.min(9999,Math.floor(Number(n)||1)));
 const revDigits=n=>String(n).split('').reverse().map(Number);
 const placeName=i=>['個位','十位','百位','千位','萬位','十萬位','百萬位','千萬位'][i]||`10^${i} 位`;
 const recordKey='multiplicationAdventureRecordsV1';
+const prefsKey='multiplicationAdventurePrefsV1';
+const resumeKey='multiplicationAdventureResumeV1';
 const speedMap={slow:2300,medium:1450,fast:850};
 const speedLabel={slow:'慢',medium:'中',fast:'快'};
 const cloneState=st=>JSON.parse(JSON.stringify(st));
@@ -686,10 +783,179 @@ function beginQuestionInstance(prefix){
   attemptState={};
   microRewardState=new Set();
 }
+
 function clearLevelQuestionContext(){
   activeLevelId=null;
   activeLevelQuestionId='';
   activeLevelScored=false;
+}
+
+/* V9.0：只記住練習位置，不保存做到一半的答案。 */
+function loadResume(){
+  try{return JSON.parse(localStorage.getItem(resumeKey)||'null')}catch(e){return null}
+}
+function saveResume(data){
+  const old=loadResume()||{};
+  const next=Object.assign({},old,data||{},{updatedAt:Date.now()});
+  try{localStorage.setItem(resumeKey,JSON.stringify(next))}catch(e){}
+  renderResumeCard();
+}
+function clearResume(){
+  try{localStorage.removeItem(resumeKey)}catch(e){}
+  renderResumeCard();
+}
+function currentTabId(){
+  const el=document.querySelector('.tab.active');
+  return el?el.dataset.tab:'concept';
+}
+function markSelfPracticeResume(extra){
+  saveResume(Object.assign({kind:'practice',practiceMode,tab:currentTabId()},extra||{}));
+}
+function markLevelResume(id,extra){
+  saveResume(Object.assign({kind:'level',levelId:Number(id),practiceMode,tab:currentTabId()},extra||{}));
+}
+function renderResumeCard(){
+  const card=$('resumeCard');if(!card)return;
+  const s=loadResume();
+  if(!s||!['practice','level'].includes(s.kind)){card.classList.remove('show');return}
+
+  let title='🧭 上次練到這裡',meta='',button='繼續練習',action='resume';
+  if(s.kind==='level'){
+    const id=Math.max(1,Math.min(levelDefs.length,Number(s.levelId)||1));
+    const r=getRecords(),info=levelProgressInfo(r,id),u=Math.max(1,Number(r.achievements.unlockedLevel)||1);
+    const completed=!!info.st.mastered||id<u;
+    if(completed){
+      const next=Math.min(levelDefs.length,Math.max(id,Math.min(u,id+1)));
+      if(next>id){
+        title=`🏆 上次完成：Lv.${id} ${levelDef(id).name}`;
+        meta=`下一站：Lv.${next} ${levelDef(next).name}`;
+        button='前往下一站';action=`level:${next}`;
+      }else{
+        title=`🏆 已完成：Lv.${id} ${levelDef(id).name}`;
+        meta=`再練一題 · ${modeLabel(s.practiceMode||'vertical')}`;
+        button='再練一題';action=`level:${id}`;
+      }
+    }else{
+      title='🔧 上次練到這裡';
+      meta=`Lv.${id} ${levelDef(id).name} · ${modeLabel(s.practiceMode||'vertical')}`;
+      action=`level:${id}`;
+    }
+  }else{
+    title='🧭 上次練習';
+    meta=`自我挑戰 · ${modeLabel(s.practiceMode||'vertical')}`;
+  }
+  $('resumeTitle').textContent=title;$('resumeMeta').textContent=meta;
+  $('resumeBtn').textContent=button;$('resumeBtn').dataset.resumeAction=action;
+  card.classList.add('show');
+}
+function resumeLastPractice(){
+  const s=loadResume();if(!s)return;
+  const action=$('resumeBtn')?.dataset.resumeAction||'resume';
+  const m=['vertical','breakdown','area'].includes(s.practiceMode)?s.practiceMode:'vertical';
+  switchPracticeMode(m,false);
+  if(action.startsWith('level:')){
+    generateLevelProblem(Number(action.split(':')[1]));
+    return;
+  }
+  clearLevelQuestionContext();
+  beginQuestionInstance('CONT');
+  updateAll();
+  switchTab('practice',false);
+  markSelfPracticeResume({tab:'practice'});
+}
+
+/* v8.1：只保存使用者指定的操作參數，不動學習紀錄。 */
+function defaultPrefs(){
+  return {
+    a:23,b:14,
+    digitsA:'2',digitsB:'2',
+    speed:'medium',
+    density:'child',
+    view:'kid',
+    soundEnabled:true,
+    carryAssistMode:'auto'
+  };
+}
+function loadPrefs(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(prefsKey)||'null');
+    return Object.assign(defaultPrefs(),saved||{});
+  }catch(e){
+    return defaultPrefs();
+  }
+}
+function savePrefs(){
+  const p={
+    a:clamp($('a')?.value),
+    b:clamp($('b')?.value),
+    digitsA:String($('digitsA')?.value||'2'),
+    digitsB:String($('digitsB')?.value||'2'),
+    speed:String($('speedSelect')?.value||'medium'),
+    density:document.body.classList.contains('standard-ui')?'standard':'child',
+    view:document.body.classList.contains('teacher')?'teacher':'kid',
+    soundEnabled:!!soundEnabled,
+    carryAssistMode:['auto','full','current','challenge'].includes(carryAssistMode)?carryAssistMode:'auto'
+  };
+  try{localStorage.setItem(prefsKey,JSON.stringify(p))}catch(e){}
+}
+function applyPrefs(){
+  const p=loadPrefs();
+
+  $('a').value=clamp(p.a);
+  $('b').value=clamp(p.b);
+  $('digitsA').value=['1','2','3','4'].includes(String(p.digitsA))?String(p.digitsA):'2';
+  $('digitsB').value=['1','2','3','4'].includes(String(p.digitsB))?String(p.digitsB):'2';
+  $('speedSelect').value=['slow','medium','fast'].includes(String(p.speed))?String(p.speed):'medium';
+
+  const density=p.density==='standard'?'standard':'child';
+  document.body.classList.toggle('standard-ui',density==='standard');
+  document.querySelectorAll('.densitybtn').forEach(b=>b.classList.toggle('active',b.dataset.density===density));
+
+  const view=p.view==='teacher'?'teacher':'kid';
+  document.body.classList.toggle('kid',view==='kid');
+  document.body.classList.toggle('teacher',view==='teacher');
+  document.querySelectorAll('.viewbtn').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+
+  soundEnabled=p.soundEnabled!==false;
+  $('soundToggle').textContent=soundEnabled?'🔊 音效：開':'🔇 音效：關';
+  $('soundToggle').setAttribute('aria-pressed',soundEnabled?'true':'false');
+
+  carryAssistMode=['auto','full','current','challenge'].includes(String(p.carryAssistMode))
+    ?String(p.carryAssistMode):'auto';
+}
+
+function resetPrefsToDefaults(){
+  try{localStorage.removeItem(prefsKey)}catch(e){}
+  try{localStorage.removeItem(resumeKey)}catch(e){}
+
+  const p=defaultPrefs();
+  $('a').value=p.a;
+  $('b').value=p.b;
+  $('digitsA').value=p.digitsA;
+  $('digitsB').value=p.digitsB;
+  $('speedSelect').value=p.speed;
+
+  document.body.classList.remove('standard-ui');
+  document.body.classList.add('kid');
+  document.body.classList.remove('teacher');
+  document.querySelectorAll('.densitybtn').forEach(b=>b.classList.toggle('active',b.dataset.density==='child'));
+  document.querySelectorAll('.viewbtn').forEach(b=>b.classList.toggle('active',b.dataset.view==='kid'));
+
+  soundEnabled=true;
+  $('soundToggle').textContent='🔊 音效：開';
+  $('soundToggle').setAttribute('aria-pressed','true');
+
+  carryAssistMode='auto';
+
+  /* 產生新的題目實例，確保直式與自我挑戰畫面同步回到預設題。 */
+  clearLevelQuestionContext();
+  beginQuestionInstance('RESET');
+  updateSpeedLabel();
+  updateAll();
+
+  /* 學習紀錄 / 關卡進度不清除。 */
+  renderResumeCard();
+  showRewardToast('設定已恢復預設值','學習紀錄與工坊進度都保留');
 }
 
 
@@ -802,7 +1068,11 @@ function getRecords(){
 }
 function errorLabel(cat){
   return {basic:'基本乘法',carry:'進位',place:'位值 / 左移',addition:'最後加法',
-    position:'數字位置',other:'其他'}[cat]||'其他';
+    position:'欄位位置',other:'其他'}[cat]||'其他';
+}
+function diagnosisLabel(code){
+  return {INCOMPLETE:'未完成',PLACE_SHIFT:'位值／左移錯誤',CARRY:'進位錯誤',
+    BASIC_MULTIPLICATION:'基本乘法錯誤',POSITION:'欄位位置錯誤',FINAL_ADDITION:'最後加法錯誤'}[code]||'需要再檢查';
 }
 const modeLabel=m=>({vertical:'直式',breakdown:'拆解法',area:'方格圖'}[m]||m);
 
@@ -962,7 +1232,11 @@ function launchConfetti(kind){
   requestAnimationFrame(tick);
 }
 function showRewardToast(message,meta){
-  const t=$('rewardToast');t.innerHTML=`<span class="big">${message}</span>${meta?`<span class="meta">${meta}</span>`:''}`;t.classList.add('show');clearTimeout(rewardTimer);rewardTimer=setTimeout(()=>t.classList.remove('show'),2600);
+  const t=$('rewardToast');
+  t.innerHTML=`<img class="toast-avatar-img" src="../assets/multiplication/mascot-workshop.webp" alt=""><span class="toast-body"><span class="big">${message}</span>${meta?`<span class="meta">${meta}</span>`:''}</span>`;
+  t.classList.add('show');
+  clearTimeout(rewardTimer);
+  rewardTimer=setTimeout(()=>t.classList.remove('show'),2600);
 }
 function showMicroReward(target,message,key){
   if(!target||microRewardState.has(key))return;
@@ -1068,6 +1342,30 @@ function updateVerticalTeachingFocus(inp,w,rowCount){
     const c=Number(ans[1]);
     inp.classList.add('target-answer');
     const ph=$(`pv_place_${c}`);if(ph)ph.classList.add('place-active');
+
+    /* 1 位乘數沒有部分積列，直接在答案列進行乘法。
+       此時仍需顯示：粉紅乘數 + 黃色被乘數。 */
+    if(rowCount<=0){
+      const bRev=revDigits(B),aRev=revDigits(A),bd=bRev[0]??0;
+      const bCell=$(`pv_b_${colOf(0,w)}`);
+      if(bCell)bCell.classList.add('operand-b-current');
+
+      const j=w-1-c;
+      if(j>=0&&j<aRev.length){
+        const aCell=$(`pv_a_${colOf(j,w)}`);
+        if(aCell)aCell.classList.add('operand-a-current');
+        const ad=aRev[j];
+        setFocusGuide(
+          `<b>現在看顏色：</b> 粉紅 ${bd}（個位） × 黃色 ${ad}（被乘數${placeName(j)}） → 綠框答案寫在<b>${placeName(j)}</b>。`
+        );
+        return;
+      }
+      if(j===aRev.length){
+        setFocusGuide('這一格是最左邊的<b>最後進位</b>位置。把上方尚未使用的紅色進位寫下來。');
+        return;
+      }
+    }
+
     setFocusGuide(`最後把各列相加。現在正在填<b>${placeName(w-1-c)}</b>這一欄。`);
     return;
   }
@@ -1127,6 +1425,7 @@ function updateCarryAssistUI(){
 function setCarryAssistMode(mode){
   carryAssistMode=['auto','full','current','challenge'].includes(mode)?mode:'auto';
   updateCarryAssistUI();
+  savePrefs();
 }
 function clearCarryHighlight(kind){
   const selector=kind==='sum'?'#verticalPracticeBox .sum-carry':'#verticalPracticeBox .mul-carry';
@@ -1402,7 +1701,7 @@ function generateAdaptiveProblem(){
     case 'basic':    a=randDigits(Math.random()<0.7?1:2); b=randDigits(1); break;
     default:         a=randDigits(2); b=randDigits(2);
   }
-  $('a').value=a;$('b').value=b;updateAll();switchTab('practice');
+  $('a').value=a;$('b').value=b;updateAll();switchTab('practice',false);markSelfPracticeResume({tab:'practice'});
   $('practiceFocus').style.display='block';
   $('practiceFocus').innerHTML=`<b>這題的練習重點：</b>${rec.text}`;
 }
@@ -1411,7 +1710,7 @@ function randomProblem(){
   beginQuestionInstance('R');
   $('a').value=randDigits(Number($('digitsA').value));
   $('b').value=randDigits(Number($('digitsB').value));
-  updateAll();switchTab('practice');
+  updateAll();switchTab('practice',false);markSelfPracticeResume({tab:'practice'});
 }
 
 function hasCarry(a,b){
@@ -1539,7 +1838,7 @@ function generateLevelProblem(id){
   activeLevelScored=false;
   attemptState={};
   microRewardState=new Set();
-  $('a').value=q.a;$('b').value=q.b;updateAll();switchTab('practice');
+  $('a').value=q.a;$('b').value=q.b;updateAll();switchTab('practice',false);markLevelResume(id,{tab:'practice'});
   $('practiceFocus').style.display='block';
   $('practiceFocus').innerHTML=`<b>🗺️ Lv.${id} ${levelDef(id).name}</b><br><b>${q.stage.label}</b><br>${q.stage.desc}<br><span class="small">本題補強重點：${errorLabel(q.weak)}</span>${q.fallback?'<br><span class="small">本題使用安全退回題型。</span>':''}`;
 }
@@ -1568,6 +1867,7 @@ function updateAll(){
 
   /* 同一題只是重新整理/按更新，不重建輸入框，保留孩子已填內容 */
   if(questionChanged||!$('practice_vertical').hasChildNodes())renderPractice();
+  savePrefs();
 }
 
 function renderConcept(){
@@ -1891,35 +2191,49 @@ function renderStep(){
 }
 
 /* ================= 分頁 / 控制 ================= */
-function switchTab(id){
+function switchTab(id,remember=true){
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===id));
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   $(id).classList.add('active');
   if(id==='records')renderRecords();
   if(id==='map')renderLevelUI();
+  if(remember){
+    const s=loadResume();
+    if(id==='practice'){
+      if(activeLevelId)markLevelResume(activeLevelId,{tab:id,practiceMode});
+      else markSelfPracticeResume({tab:id,practiceMode});
+    }else if(s)saveResume({tab:id});
+  }
 }
 function switchSubtab(id){
   document.querySelectorAll('.subtab').forEach(t=>t.classList.toggle('active',t.dataset.subtab===id));
   document.querySelectorAll('.subpanel').forEach(p=>p.classList.remove('active'));
   $(id).classList.add('active');
 }
-function switchPracticeMode(mode){
+function switchPracticeMode(mode,remember=true){
   practiceMode=mode;
   document.querySelectorAll('.modebtn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
   document.querySelectorAll('.modepanel').forEach(p=>p.classList.remove('active'));
   $('practice_'+mode).classList.add('active');
+  diagnosisActive=false;
   clearPracticeFeedback();
   if(mode==='vertical')updateCarryAssistUI();
+  if(remember){
+    if(activeLevelId)markLevelResume(activeLevelId,{practiceMode:mode});
+    else markSelfPracticeResume({practiceMode:mode});
+  }
 }
 function switchView(view){
   document.body.classList.toggle('kid',view==='kid');
   document.body.classList.toggle('teacher',view==='teacher');
   document.querySelectorAll('.viewbtn').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+  savePrefs();
 }
 function switchDensity(d){
   document.body.classList.toggle('standard-ui',d==='standard');
   document.querySelectorAll('.densitybtn').forEach(b=>b.classList.toggle('active',b.dataset.density===d));
   renderStep(); /* 只改 CSS 尺寸，不重建輸入欄，保留孩子已填內容 */
+  savePrefs();
 }
 function stopAuto(){if(timer){clearInterval(timer);timer=null}}
 function playAuto(){
@@ -1930,6 +2244,7 @@ function playAuto(){
 function updateSpeedLabel(){
   $('speedNote').textContent=`目前速度：${speedLabel[$('speedSelect').value]}`;
   if(timer)playAuto();
+  savePrefs();
 }
 
 /* ================= 練習 ================= */
@@ -1944,6 +2259,21 @@ function renderPractice(){
   clearPracticeFeedback();
   renderPracticeBreakdown();renderPracticeArea();renderPracticeVertical();
 }
+
+/* 開始修改時，上一輪文字診斷退場；下一個問題等再次按「檢查」才判讀。 */
+$('practice').addEventListener('input',e=>{
+  if(e.target.matches('input[type=number]')){
+    const v=String(e.target.value||'');
+    if(/[^0-9]/.test(v))e.target.value=v.replace(/[^0-9]/g,'');
+  }
+  if(!diagnosisActive)return;
+  diagnosisActive=false;
+  clearPracticeFeedback();
+});
+$('practice').addEventListener('keydown',e=>{
+  if(e.target.matches('input[type=number]')&&['e','E','+','-','.'].includes(e.key))e.preventDefault();
+  if(e.key==='Enter'&&e.target.matches('input')){e.preventDefault();checkPractice()}
+});
 
 function renderPracticeBreakdown(){
   const parts=multiplierParts().slice().reverse();
@@ -2058,6 +2388,11 @@ function renderPracticeVertical(){
   updateCarryAssistUI();
 }
 
+function focusPracticeInput(el){
+  if(!el)return;
+  try{el.focus({preventScroll:true})}catch(e){el.focus()}
+  ensurePracticeTargetVisible(el);
+}
 function setupSmartVerticalInputs(w,rowCount){
   const seq=[],bRev=revDigits(B);
 
@@ -2092,6 +2427,7 @@ function setupSmartVerticalInputs(w,rowCount){
       seq.forEach(x=>x.classList.remove('focus-next'));
       inp.classList.add('focus-next');
       updateVerticalTeachingFocus(inp,w,rowCount);
+      ensurePracticeTargetVisible(inp);
     });
 
     inp.addEventListener('input',e=>{
@@ -2104,16 +2440,16 @@ function setupSmartVerticalInputs(w,rowCount){
         handleAnswerInputProgress(inp,w,rowCount);
       }
 
-      if(e.target.value!==''&&i<seq.length-1)seq[i+1].focus({preventScroll:true});
+      if(e.target.value!==''&&i<seq.length-1)focusPracticeInput(seq[i+1]);
       else updateVerticalTeachingFocus(inp,w,rowCount);
     });
 
     inp.addEventListener('keydown',e=>{
       if(e.key==='Backspace'&&inp.value===''&&i>0){
-        e.preventDefault();seq[i-1].focus({preventScroll:true});seq[i-1].value='';
+        e.preventDefault();focusPracticeInput(seq[i-1]);seq[i-1].value='';
       }
-      if(e.key==='ArrowLeft'&&i<seq.length-1){e.preventDefault();seq[i+1].focus({preventScroll:true})}
-      if(e.key==='ArrowRight'&&i>0){e.preventDefault();seq[i-1].focus({preventScroll:true})}
+      if(e.key==='ArrowLeft'&&i<seq.length-1){e.preventDefault();focusPracticeInput(seq[i+1])}
+      if(e.key==='ArrowRight'&&i>0){e.preventDefault();focusPracticeInput(seq[i-1])}
     });
   });
 
@@ -2124,7 +2460,7 @@ function setupSmartVerticalInputs(w,rowCount){
     if(inp.id.startsWith('v_ans_'))return;
 
     if(!seq.includes(inp)){
-      inp.addEventListener('focus',()=>updateVerticalTeachingFocus(inp,w,rowCount));
+      inp.addEventListener('focus',()=>{updateVerticalTeachingFocus(inp,w,rowCount);ensurePracticeTargetVisible(inp)});
       inp.addEventListener('input',e=>{
         clean(e);
         updateVerticalTeachingFocus(inp,w,rowCount);
@@ -2143,6 +2479,7 @@ function setupSmartVerticalInputs(w,rowCount){
     });
     inp.addEventListener('focus',()=>{
       if(effectiveCarryAssistMode()!=='challenge')inp.classList.remove('carry-dormant');
+      ensurePracticeTargetVisible(inp);
     });
   });
 
@@ -2163,20 +2500,83 @@ function readPlacedNumber(row,w){
 function simulateNoCarryProduct(a,digit){
   return Number(revDigits(a).map(x=>(x*digit)%10).reverse().join(''));
 }
+/* 產生「某一欄忘了加前一步進位」時可能得到的結果。
+   只用來輔助文字判讀，不會改動孩子的答案。 */
+function carryOmissionVariants(a,digit){
+  const ds=revDigits(a),out=[];
+  for(let omitAt=1;omitAt<ds.length;omitAt++){
+    let carry=0,digits=[];
+    for(let i=0;i<ds.length;i++){
+      const incoming=(i===omitAt)?0:carry;
+      const t=ds[i]*digit+incoming;
+      digits.push(t%10);
+      carry=Math.floor(t/10);
+    }
+    while(carry>0){digits.push(carry%10);carry=Math.floor(carry/10)}
+    out.push(Number(digits.reverse().join('')));
+  }
+  return [...new Set(out)];
+}
+function isCarryOmissionProduct(user,a,digit,pos=0){
+  const factor=10**pos;
+  return carryOmissionVariants(a,digit).some(v=>v*factor===user);
+}
 const sameDigits=(x,y)=>String(x).split('').sort().join('')===String(y).split('').sort().join('');
 
+function practiceInputId(row,c){return row==='ans'?`v_ans_${c}`:`v_${row}_${c}`}
+function paddedDigits(value,w){return String(value).padStart(w,'0')}
+function firstMismatchCol(row,expected,w,startCol=w-1){
+  const s=paddedDigits(expected,w);
+  for(let c=startCol;c>=0;c--){
+    const el=$(practiceInputId(row,c));if(!el)continue;
+    const actual=el.value===''?0:Number(el.value),want=Number(s[c]||0);
+    if(actual!==want)return c;
+  }
+  return Math.max(0,startCol);
+}
+function firstIncompleteTarget(row,expected,w){
+  const s=paddedDigits(expected,w);let any=false,missing=null,mismatch=false;
+  for(let c=0;c<w;c++){
+    const el=$(practiceInputId(row,c));if(!el)continue;
+    if(el.value!==''){
+      any=true;
+      if(Number(el.value)!==Number(s[c]||0))mismatch=true;
+    }else if(Number(s[c]||0)!==0&&missing===null){missing=c}
+  }
+  return any&&!mismatch&&missing!==null?practiceInputId(row,missing):null;
+}
+function diagnoseContextForCell(row,pos,bd,c,w){
+  const j=Math.max(0,w-1-pos-c),aCol=colOf(j,w),bCol=colOf(pos,w);
+  return {targetIds:[practiceInputId(row,c)],sourceAIds:[`pv_a_${aCol}`],sourceBIds:[`pv_b_${bCol}`],placeIds:[`pv_place_${c}`]};
+}
+
 /* 把一個錯誤的部分積歸類 */
-function classifyPartial(user,expected,pos,bd){
-  const raw=A*bd;
-  if(pos>0&&user===raw)
-    return {category:'place',msg:`第 ${pos+1} 列乘法算對了，但沒有左移。${bd} 站在${placeName(pos)}，代表 ${bd*(10**pos)}。`};
-  if(user===simulateNoCarryProduct(A,bd)*(10**pos))
-    return {category:'carry',msg:`第 ${pos+1} 列每一格都乘了，但沒有把進位加進下一格。`};
-  if(pos>0&&user%(10**pos)!==0)
-    return {category:'position',msg:`第 ${pos+1} 列沒有對齊${placeName(pos)}，右邊應該留 ${pos} 格空白。`};
-  if(sameDigits(user,expected))
-    return {category:'position',msg:`第 ${pos+1} 列的數字都對，但欄位放錯了。請檢查每個數字對到哪一位。`};
-  return {category:'basic',msg:`第 ${pos+1} 列的部分積不正確。先只算 ${A} × ${bd*(10**pos)}。`};
+function classifyPartial(user,expected,pos,bd,row,w){
+  const raw=A*bd,start=colOf(pos,w),rowKey=row===undefined?pos:row;
+  if(pos>0&&user===raw){
+    return {category:'place',code:'PLACE_SHIFT',msg:`第 ${pos+1} 列乘法算對了，但起點少左移一個位值。${bd} 在${placeName(pos)}，所以這一列要從${placeName(pos)}開始。`,
+      targetIds:[practiceInputId(rowKey,start)],placeIds:[`pv_place_${start}`],sourceBIds:[`pv_b_${colOf(pos,w)}`],
+      wrongIds:[...Array(pos).keys()].map(k=>practiceInputId(rowKey,w-1-k)).filter(id=>$(id)?.value!==''),
+      teacher:[`實際值：${user}`,`預期部分積：${expected}`,`乘數位值：${placeName(pos)}`]};
+  }
+  const c=firstMismatchCol(rowKey,expected,w,start),ctx=diagnoseContextForCell(rowKey,pos,bd,c,w);
+  if(isCarryOmissionProduct(user,A,bd,pos)||user===simulateNoCarryProduct(A,bd)*(10**pos)){
+    const j=Math.max(1,w-1-pos-c),carryCol=colOf(pos+j,w);
+    return Object.assign({category:'carry',code:'CARRY',msg:'前一格產生的進位還沒有加進來。先重新檢查目前這一步。',
+      carryIds:[`v_c_${carryCol}`],teacher:[`實際值：${user}`,`預期部分積：${expected}`,`判讀重點：前一格進位未帶入目前欄位`]},ctx);
+  }
+  if(pos>0&&user%(10**pos)!==0){
+    const wrong=[];for(let x=start+1;x<w;x++)if($(practiceInputId(rowKey,x))?.value!=='')wrong.push(practiceInputId(rowKey,x));
+    return {category:'position',code:'POSITION',msg:`這一列的數字位置跑掉了。先看${placeName(pos)}的起點，再把數字放回正確欄位。`,
+      targetIds:[practiceInputId(rowKey,start)],wrongIds:wrong,placeIds:[`pv_place_${start}`],sourceBIds:[`pv_b_${colOf(pos,w)}`],
+      teacher:[`實際值：${user}`,`預期部分積：${expected}`,`正確起點：${placeName(pos)}`]};
+  }
+  if(sameDigits(user,expected)){
+    return Object.assign({category:'position',code:'POSITION',msg:'數字其實都對了，只是欄位位置跑掉了。先重新確認每個數字應該放在哪個位值。',
+      wrongIds:[practiceInputId(rowKey,c)],teacher:[`實際值：${user}`,`預期值：${expected}`,`判讀重點：數字正確但欄位排列錯誤`]},ctx);
+  }
+  return Object.assign({category:'basic',code:'BASIC_MULTIPLICATION',msg:`先只看目前這兩個數字的乘法，再重新確認這一步。`,
+    teacher:[`實際值：${user}`,`預期部分積：${expected}`,`判讀重點：基本乘法結果需要再確認`]},ctx);
 }
 
 function diagnoseVertical(){
@@ -2185,20 +2585,33 @@ function diagnoseVertical(){
     const expected=bRev.map((d,i)=>A*d*(10**i));
     for(let r=0;r<n;r++){
       const user=readPlacedNumber(r,w);
-      if(user===null&&expected[r]===0)continue; // 乘數該位是 0 時，可留空或填 0
-      if(user===null)return {ok:false,incomplete:true,msg:`第 ${r+1} 列還沒有填。`};
-      if(user!==expected[r])return Object.assign({ok:false},classifyPartial(user,expected[r],r,bRev[r]));
+      if(user===null&&expected[r]===0)continue;
+      if(user===null){
+        const target=practiceInputId(r,colOf(r,w));
+        return {ok:false,incomplete:true,code:'INCOMPLETE',msg:`第 ${r+1} 列還沒有填。先把這一列完成，再按檢查。`,targetIds:[target],placeIds:[`pv_place_${colOf(r,w)}`]};
+      }
+      if(user!==expected[r]){
+        const missing=firstIncompleteTarget(r,expected[r],w);
+        if(missing)return {ok:false,incomplete:true,code:'INCOMPLETE',msg:'這一列還沒完成。先把缺少的數字補完，再按檢查。',targetIds:[missing]};
+        return Object.assign({ok:false},classifyPartial(user,expected[r],r,bRev[r],r,w));
+      }
     }
   }
-  const finalUser=readPlacedNumber('ans',w);
-  if(finalUser===null)return {ok:false,incomplete:true,msg:'最後答案還沒有填。'};
-  if(finalUser!==A*B){
-    if(single)return Object.assign({ok:false},classifyPartial(finalUser,A*B,0,bRev[0]));
+  const finalUser=readPlacedNumber('ans',w),finalExpected=A*B;
+  if(finalUser===null){
+    const c=firstMismatchCol('ans',finalExpected,w,w-1);
+    return {ok:false,incomplete:true,code:'INCOMPLETE',msg:'最後答案還沒有填。先把答案完成，再按檢查。',targetIds:[`v_ans_${c}`]};
+  }
+  if(finalUser!==finalExpected){
+    const missing=firstIncompleteTarget('ans',finalExpected,w);
+    if(missing)return {ok:false,incomplete:true,code:'INCOMPLETE',msg:'最後答案還沒完成。先把缺少的數字補完，再按檢查。',targetIds:[missing]};
+    if(single)return Object.assign({ok:false},classifyPartial(finalUser,finalExpected,0,bRev[0],'ans',w));
+    const c=firstMismatchCol('ans',finalExpected,w,w-1);
     if(finalUser===A*(B%10))
-      return {ok:false,category:'addition',msg:'最後答案只寫了個位那一列，其他列還沒加進去。'};
-    if(sameDigits(finalUser,A*B))
-      return {ok:false,category:'position',msg:'答案的數字都對，但欄位放錯了。'};
-    return {ok:false,category:'addition',msg:'每一列部分積都正確，問題出在最後相加。只要重算最後那個加法就好。'};
+      return {ok:false,category:'addition',code:'FINAL_ADDITION',msg:'最後答案只加進了個位部分積。上面的部分積都完成了，現在只重新檢查最後相加。',targetIds:[`v_ans_${c}`],placeIds:[`pv_place_${c}`],teacher:[`實際值：${finalUser}`,`預期答案：${finalExpected}`,`判讀重點：漏加其他部分積`]};
+    if(sameDigits(finalUser,finalExpected))
+      return {ok:false,category:'position',code:'POSITION',msg:'答案的數字都對，但欄位位置跑掉了。先重新確認每個數字的位值。',targetIds:[`v_ans_${c}`],wrongIds:[`v_ans_${c}`],placeIds:[`pv_place_${c}`],teacher:[`實際值：${finalUser}`,`預期答案：${finalExpected}`,`判讀重點：答案數字正確但欄位錯置`]};
+    return {ok:false,category:'addition',code:'FINAL_ADDITION',msg:'前面的乘法部分積都正確，現在只要重新檢查最後相加的這一欄。',targetIds:[`v_ans_${c}`],placeIds:[`pv_place_${c}`],teacher:[`實際值：${finalUser}`,`預期答案：${finalExpected}`,`判讀重點：最後加法需要再確認`]};
   }
   return {ok:true,msg:'直式填寫正確！'};
 }
@@ -2207,17 +2620,17 @@ function diagnoseBreakdown(){
   const parts=multiplierParts().slice().reverse();
   for(const p of parts){
     const el=$(`bd_part_${p.pos}`);
-    if(!el||el.value==='')return {ok:false,incomplete:true,msg:`${A} × ${p.value} 還沒有填。`};
+    if(!el||el.value==='')return {ok:false,incomplete:true,code:'INCOMPLETE',msg:`${A} × ${p.value} 還沒有填。`,targetIds:[`bd_part_${p.pos}`]};
     const v=Number(el.value),correct=A*p.value;
     if(v!==correct){
       if(p.value>=10&&v===A*p.d)
-        return {ok:false,category:'place',msg:`少了位值：${p.d} 站在${placeName(p.pos)}，是 ${p.value} 不是 ${p.d}。`};
-      return {ok:false,category:'basic',msg:`${A} × ${p.value} 不正確，請重算。`};
+        return {ok:false,category:'place',code:'PLACE_SHIFT',msg:`少了位值：${p.d} 站在${placeName(p.pos)}，是 ${p.value} 不是 ${p.d}。`,targetIds:[`bd_part_${p.pos}`],teacher:[`實際值：${v}`,`預期值：${correct}`,`乘數位值：${placeName(p.pos)}`]};
+      return {ok:false,category:'basic',code:'BASIC_MULTIPLICATION',msg:`${A} × ${p.value} 不正確，先只修這一段。`,targetIds:[`bd_part_${p.pos}`],teacher:[`實際值：${v}`,`預期值：${correct}`]};
     }
   }
-  if($('bd_total').value==='')return {ok:false,incomplete:true,msg:'最後答案還沒有填。'};
+  if($('bd_total').value==='')return {ok:false,incomplete:true,code:'INCOMPLETE',msg:'最後答案還沒有填。',targetIds:['bd_total']};
   if(Number($('bd_total').value)!==A*B)
-    return {ok:false,category:'addition',msg:'每一段都正確，錯在最後相加。'};
+    return {ok:false,category:'addition',code:'FINAL_ADDITION',msg:'每一段都正確，現在只重新檢查最後相加。',targetIds:['bd_total'],teacher:[`實際值：${Number($('bd_total').value)}`,`預期答案：${A*B}`]};
   return {ok:true,msg:'拆解法作答正確！'};
 }
 
@@ -2227,26 +2640,28 @@ function diagnoseArea(){
   const bParts=[...bS].map((d,i)=>Number(d)*(10**(bS.length-1-i)));
   for(let ri=0;ri<bParts.length;ri++)for(let ci=0;ci<aParts.length;ci++){
     const el=$(`area_${ri}_${ci}`);
-    if(!el||el.value==='')return {ok:false,incomplete:true,msg:`方格圖第 ${ri+1} 列第 ${ci+1} 格還沒有填。`};
+    if(!el||el.value==='')return {ok:false,incomplete:true,code:'INCOMPLETE',msg:`方格圖第 ${ri+1} 列第 ${ci+1} 格還沒有填。`,targetIds:[`area_${ri}_${ci}`]};
     const correct=bParts[ri]*aParts[ci];
     if(Number(el.value)!==correct){
       if(Number(el.value)===Number(String(bParts[ri])[0])*Number(String(aParts[ci])[0]))
-        return {ok:false,category:'place',msg:`第 ${ri+1} 列第 ${ci+1} 格少了 0：${bParts[ri]} × ${aParts[ci]} 不是個位數相乘。`};
-      return {ok:false,category:'basic',msg:`方格圖第 ${ri+1} 列第 ${ci+1} 格不正確：請重算 ${bParts[ri]} × ${aParts[ci]}。`};
+        return {ok:false,category:'place',code:'PLACE_SHIFT',msg:`第 ${ri+1} 列第 ${ci+1} 格少了位值：${bParts[ri]} × ${aParts[ci]} 不是個位數相乘。`,targetIds:[`area_${ri}_${ci}`],teacher:[`實際值：${Number(el.value)}`,`預期值：${correct}`]};
+      return {ok:false,category:'basic',code:'BASIC_MULTIPLICATION',msg:`方格圖這一格不正確，先只重算 ${bParts[ri]} × ${aParts[ci]}。`,targetIds:[`area_${ri}_${ci}`],teacher:[`實際值：${Number(el.value)}`,`預期值：${correct}`]};
     }
   }
-  if($('area_total').value==='')return {ok:false,incomplete:true,msg:'總和還沒有填。'};
+  if($('area_total').value==='')return {ok:false,incomplete:true,code:'INCOMPLETE',msg:'總和還沒有填。',targetIds:['area_total']};
   if(Number($('area_total').value)!==A*B)
-    return {ok:false,category:'addition',msg:'每一格都正確，錯在最後總和。'};
+    return {ok:false,category:'addition',code:'FINAL_ADDITION',msg:'每一格都正確，現在只重新檢查最後總和。',targetIds:['area_total'],teacher:[`實際值：${Number($('area_total').value)}`,`預期答案：${A*B}`]};
   return {ok:true,msg:'方格圖作答正確！'};
 }
 
 function checkPractice(){
+  diagnosisActive=false;
   const res=practiceMode==='vertical'?diagnoseVertical()
            :practiceMode==='breakdown'?diagnoseBreakdown():diagnoseArea();
   const f=$('practiceFeedback');
 
   if(res.incomplete){
+    diagnosisActive=true;
     f.className='feedback warn';
     f.innerHTML=`🧩 <b>${pickEncouragement('incomplete')}</b><div class="diag">${res.msg}</div><div class="diag">填完再按檢查，這次不會算成答錯。</div>`;
     return;
@@ -2255,11 +2670,13 @@ function checkPractice(){
     f.className='feedback ok';
     f.textContent='✓ '+res.msg;
   }else{
+    diagnosisActive=true;
     f.className='feedback bad';
     const teacher=document.body.classList.contains('teacher');
+    const details=(res.teacher||[]).map(x=>`<div>${x}</div>`).join('');
     f.innerHTML=`🔎 <b>${pickEncouragement('wrong')}</b><div class="diag">${res.msg}</div>`+(teacher
-      ? `<div class="diag">教師判讀：${errorLabel(res.category)}</div>`
-      : '<div class="diag">不用整題重來，先修正這一步。</div>');
+      ? `<div class="teacher-diag"><div><b>教師判讀：${diagnosisLabel(res.code)}</b></div>${details}</div>`
+      : '<div class="diag">不用整題重來，先重新檢查這一步。</div>');
   }
   const rewardEvent=recordAttempt(res);
   if(res.ok)celebrate(rewardEvent);else updateAchievementUI();
@@ -2282,6 +2699,7 @@ function manualUpdate(){
     beginQuestionInstance('M');
   }
   updateAll();
+  if(currentTabId()==='practice'&&!activeLevelId)markSelfPracticeResume({tab:'practice'});
 }
 $('startBtn').onclick=manualUpdate;
 $('randomBtn').onclick=randomProblem;
@@ -2293,6 +2711,9 @@ $('levelBtn').onclick=()=>generateLevelProblem(currentLevelId());
 $('mapChallengeBtn').onclick=()=>generateLevelProblem(currentLevelId());
 $('a').addEventListener('change',manualUpdate);
 $('b').addEventListener('change',manualUpdate);
+$('digitsA').addEventListener('change',savePrefs);
+$('digitsB').addEventListener('change',savePrefs);
+window.addEventListener('beforeunload',savePrefs);
 
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>switchTab(t.dataset.tab));
 document.querySelectorAll('.subtab').forEach(t=>t.onclick=()=>switchSubtab(t.dataset.subtab));
@@ -2319,7 +2740,18 @@ $('soundToggle').onclick=()=>{
   soundEnabled=!soundEnabled;
   $('soundToggle').textContent=soundEnabled?'🔊 音效：開':'🔇 音效：關';
   $('soundToggle').setAttribute('aria-pressed',soundEnabled?'true':'false');
+  savePrefs();
   if(soundEnabled){ensureAudio();playPositiveSound('corrected')}
+};
+
+
+$('resumeBtn').onclick=resumeLastPractice;
+$('resumeDismissBtn').onclick=()=>clearResume();
+
+$('resetPrefsBtn').onclick=()=>{
+  if(confirm('要把操作設定恢復成預設值嗎？\n\n不會清除學習紀錄、工坊徽章或關卡進度。')){
+    resetPrefsToDefaults();
+  }
 };
 
 $('resetRecordsBtn').onclick=()=>{
@@ -2335,7 +2767,7 @@ $('resetRecordsBtn').onclick=()=>{
   }
 };
 
-updateSpeedLabel();updateAll();renderRecords();updateAchievementUI();renderLevelUI();
+applyPrefs();updateSpeedLabel();updateAll();renderRecords();updateAchievementUI();renderLevelUI();renderResumeCard();
 </script>
 <script>
 if ('serviceWorker' in navigator) {

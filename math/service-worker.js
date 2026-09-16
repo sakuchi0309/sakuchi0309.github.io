@@ -1,7 +1,7 @@
 'use strict';
 
 const CACHE_PREFIX = 'math-explorer-island-';
-const CACHE_NAME = CACHE_PREFIX + 'platform-v8';
+const CACHE_NAME = CACHE_PREFIX + 'platform-v9-0-1';
 
 const APP_SHELL = [
   './',
@@ -20,6 +20,7 @@ const APP_SHELL = [
   './assets/platform/hero.webp',
   './assets/platform/platform-scene.webp',
   './assets/multiplication/workshop.webp',
+  './assets/multiplication/workshop-interior.webp',
   './assets/multiplication/mascot-workshop.webp',
   './assets/division/division-bay.webp',
   './assets/fractions/fraction-forest.webp'
