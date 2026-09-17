@@ -297,3 +297,10 @@ v9.2
 3. math/docs/development-release-guide.png：換成使用者提供的新版本，統一小精靈風格並使用實際網址 sakuchi0309.github.io。
 4. 其餘乘法工坊核心功能與圖片資產不變。
 5. Service Worker 快取版本更新為 platform-v9-2。
+
+v9.2.1
+------
+1. 套用新版 about.html（使用者提供內容）。
+2. 可見英文世界觀名稱統一為「Math Adventure Island」。
+3. contact.html footer 同步改為 Math Adventure Island。
+4. Service Worker cache version 更新為 platform-v9-2-1。

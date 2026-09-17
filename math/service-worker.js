@@ -1,7 +1,7 @@
 'use strict';
 
 const CACHE_PREFIX = 'math-explorer-island-';
-const CACHE_NAME = CACHE_PREFIX + 'platform-v9-2';
+const CACHE_NAME = CACHE_PREFIX + 'platform-v9-2-1';
 
 const APP_SHELL = [
   './',
