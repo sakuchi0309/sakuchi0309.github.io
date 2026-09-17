@@ -288,3 +288,12 @@ v9.1
 5. 第一次完成工作站時，保留原單題成功鼓勵，之後再播放較大型工作站完成慶祝。
 6. 已完成工作站重做時不再觸發大型完成慶祝。
 7. Service Worker 快取版號更新為 platform-v9-1。
+
+
+v9.2
+----
+1. about.html：套用使用者核定的「數學探險島理念」版本。
+2. contact.html：套用使用者核定的 Email 聯絡版本，家長介面不顯示 GitHub / GitHub Issues。
+3. math/docs/development-release-guide.png：換成使用者提供的新版本，統一小精靈風格並使用實際網址 sakuchi0309.github.io。
+4. 其餘乘法工坊核心功能與圖片資產不變。
+5. Service Worker 快取版本更新為 platform-v9-2。

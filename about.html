@@ -3,40 +3,135 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>關於我</title>
+<meta name="description" content="數學探險島的起點、設計理念與想帶給孩子的學習體驗。">
+<meta name="theme-color" content="#38bdf8">
+<title>關於數學探險島</title>
 <style>
-:root{--bg:#f7fbff;--ink:#16324f;--muted:#60758a;--card:#fff;--brand:#2563eb;--line:#dbeafe}
+:root{
+  --ink:#16324f;--muted:#5f7387;--brand:#2563eb;--brand2:#06b6d4;
+  --sky:#effaff;--sea:#dff7ff;--card:#fff;--line:#d6ebf7;
+  --yellow:#fff3a7;--green:#dcfce7;--pink:#ffe5ef;--purple:#eee7ff;
+  --shadow:0 14px 40px rgba(33,103,151,.10);--radius:26px;
+}
 *{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;background:linear-gradient(#eef8ff,#fff);color:var(--ink)}
-header{padding:18px 22px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
-nav{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-nav a{text-decoration:none;color:var(--ink);font-weight:800}
-nav a.brand{font-size:20px;color:var(--brand);margin-right:auto}
-main{max-width:980px;margin:auto;padding:42px 20px 70px}
-.hero{padding:34px;border-radius:24px;background:#fff;border:1px solid var(--line);box-shadow:0 12px 32px rgba(37,99,235,.08)}
-h1{font-size:clamp(32px,6vw,58px);margin:.15em 0}
-p{line-height:1.8;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:24px}
-.card{display:block;background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;text-decoration:none;color:inherit;box-shadow:0 8px 22px rgba(15,23,42,.05)}
-.card:hover{transform:translateY(-2px)}
-.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-weight:800;font-size:13px}
-.button{display:inline-block;margin-top:10px;padding:12px 16px;border-radius:14px;background:var(--brand);color:white;text-decoration:none;font-weight:900}
-footer{text-align:center;color:#789;padding:30px}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC",sans-serif;color:var(--ink);background:linear-gradient(180deg,#e8f9ff 0,#f9fdff 44%,#fff 100%)}
+a{color:inherit}
+header{position:sticky;top:0;z-index:20;padding:14px max(18px,env(safe-area-inset-right)) 14px max(18px,env(safe-area-inset-left));background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav{max-width:1120px;margin:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+nav a{text-decoration:none;font-weight:850;padding:10px 12px;border-radius:12px;min-height:44px;display:flex;align-items:center}
+nav a:hover{background:#eef7ff}
+nav a.brand{margin-right:auto;color:#1459c7;font-size:20px}
+nav a.active{background:#e8f2ff;color:#1459c7}
+nav a.island{background:linear-gradient(135deg,#dff7ff,#e8fff0);color:#087b73}
+main{max-width:1120px;margin:auto;padding:34px 20px 80px}
+.hero{position:relative;overflow:hidden;padding:clamp(30px,6vw,66px);border:1px solid var(--line);border-radius:32px;background:radial-gradient(circle at 85% 16%,#fff6a8 0 6%,transparent 6.5%),linear-gradient(135deg,#fff 0,#effaff 48%,#e6fff6 100%);box-shadow:var(--shadow)}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:999px;opacity:.5;pointer-events:none}.hero:before{width:210px;height:210px;right:-75px;top:-70px;background:#bdeeff}.hero:after{width:150px;height:150px;right:90px;bottom:-90px;background:#baf3cf}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;background:#e7f5ff;color:#1765b8;font-weight:900;border-radius:999px;padding:8px 13px;letter-spacing:.04em}
+h1{font-size:clamp(38px,7vw,72px);line-height:1.08;margin:18px 0 16px;letter-spacing:-.035em;max-width:850px}.hero-subtitle{font-size:clamp(17px,2.2vw,21px);font-weight:850;color:#31709b;margin:0 0 20px;letter-spacing:.02em}.lead{font-size:clamp(18px,2.5vw,23px);line-height:1.8;color:#47657e;max-width:800px;margin:24px 0 0}.hero-quote{margin-top:0;display:inline-block;background:#173f6b;color:white;padding:20px 22px;border-radius:18px;font-weight:900;font-size:clamp(19px,2.5vw,24px);line-height:1.7;box-shadow:0 10px 28px rgba(23,63,107,.16)}.hero-quote .line{display:block}.hero-quote .wind{color:#ffef8a}
+.section{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(24px,4vw,38px);box-shadow:0 10px 30px rgba(33,103,151,.06)}
+.section-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}.icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:27px;flex:0 0 52px}.blue{background:#e3f1ff}.yellow{background:#fff5bd}.green{background:#dcfce7}.pink{background:#ffe5ef}.purple{background:#eee7ff}
+h2{font-size:clamp(25px,4vw,36px);margin:0 0 6px}.kicker{margin:0;color:#668097;font-weight:750}.section p{font-size:17px;line-height:1.9;color:var(--muted);margin:12px 0}.strong{color:#16324f;font-weight:900}
+.dialogue{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}.bubble{border-radius:20px;padding:18px 20px;font-size:17px;line-height:1.7;font-weight:800}.adult{background:#fff3df;border:1px solid #f8d9a4}.child{background:#e8f4ff;border:1px solid #c8e0f7}
+.tool-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:20px}.tool{border:1px solid var(--line);border-radius:18px;padding:18px 12px;text-align:center;background:#fbfeff}.tool .emoji{font-size:30px}.tool b{display:block;margin-top:8px}.tool small{display:block;color:#6a8093;margin-top:5px;line-height:1.5}
+.chain{display:flex;align-items:stretch;gap:8px;overflow:auto;padding:10px 2px 8px;scrollbar-width:thin}.step{min-width:128px;background:#f8fbfe;border:1px solid var(--line);border-radius:16px;padding:15px;text-align:center;font-weight:850}.arrow{align-self:center;color:#57a2d8;font-size:24px;font-weight:900}.chain .step:last-child{background:#fff0f4;border-color:#ffd0dc}
+.reset{margin-top:20px;padding:20px;border-radius:20px;background:linear-gradient(135deg,#effaff,#effff4);border:1px solid #cfeede}.reset b{font-size:19px}.reset p{margin-bottom:0}
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.principle{padding:20px;border:1px solid var(--line);border-radius:20px;background:#fcfeff}.principle b{font-size:18px}.principle p{font-size:15px;margin-bottom:0}
+.path{margin:24px 0 8px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px}.path span{padding:11px 15px;border-radius:999px;font-weight:900;background:#edf7ff;border:1px solid #cfe6f8}.path i{font-style:normal;color:#63a9d8;font-size:22px}
+.statement{margin-top:26px;text-align:center;padding:clamp(28px,5vw,50px);border-radius:30px;background:linear-gradient(135deg,#153b69,#176f9a);color:#fff;box-shadow:var(--shadow)}.statement h2{font-size:clamp(28px,5vw,46px)}.statement p{max-width:760px;margin:14px auto 0;color:#dcefff;font-size:18px;line-height:1.9}.statement .final{display:block;margin-top:24px;color:#ffef8a;font-size:clamp(20px,3vw,28px);font-weight:950}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}.button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:14px;text-decoration:none;font-weight:900}.primary{background:#fff;color:#1459c7}.secondary{border:1px solid #80bad8;color:#fff}
+footer{text-align:center;color:#789;padding:28px 20px calc(28px + env(safe-area-inset-bottom));font-size:14px}
+@media(max-width:840px){.tool-grid{grid-template-columns:repeat(2,1fr)}.principles{grid-template-columns:1fr}.dialogue{grid-template-columns:1fr}.chain{flex-direction:column}.arrow{transform:rotate(90deg)}}
+@media(max-width:560px){header{padding-top:8px;padding-bottom:8px}nav{gap:4px}nav a{padding:9px 8px;font-size:14px}nav a.brand{font-size:17px}.hero{border-radius:24px;padding:30px 22px}.section{padding:23px 19px}.tool-grid{grid-template-columns:1fr 1fr}.hero-quote{width:100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<header><nav>
-<a class="brand" href="./index.html">首頁</a>
-<a href="./about.html">關於</a>
+<header><nav aria-label="主要導覽">
+<a class="brand" href="./index.html">✨ sakuchi0309</a>
+<a class="active" href="./about.html" aria-current="page">關於</a>
 <a href="./projects.html">專案</a>
 <a href="./contact.html">聯絡</a>
-<a href="./math/">🏝️ 數學探險島</a>
+<a class="island" href="./math/">🏝️ 數學探險島</a>
 </nav></header>
+
 <main>
 <section class="hero">
-<h1>關於我</h1>
-<p>這一頁保留給你的個人介紹。之後可加入背景、專長、開發理念與教育工具設計想法。</p>
+  <span class="eyebrow">🏝️ WHY MATH EXPLORER ISLAND</span>
+  <h1>關於數學探險島</h1>
+  <p class="hero-subtitle">從陪孩子學習開始的一場探索</p>
+  <div class="hero-quote">
+    <span class="line">成長不需要被催促，飛翔也不需要被比較；</span>
+    <span class="line wind">給孩子一點時間，陪他找到屬於自己的風。</span>
+  </div>
+  <p class="lead">我是一位軟體開發者，也是一位陪孩子學習的大人。擅長軟體開發，也習慣從不同角度拆解問題，把複雜的事情整理成可以理解、可以操作、可以反覆嘗試的工具。</p>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="icon blue">👨‍💻</div><div><h2>起點：只是想陪孩子把數學學好</h2><p class="kicker">從一個很普通、也很真實的家庭學習場景開始</p></div></div>
+  <p>「數學探險島」最初並不是一個產品計畫，而只是希望陪家中的小朋友，把數學學得更容易一點、更開心一點。</p>
+  <p>真正一起學之後，我才發現：<span class="strong">孩子學不會時會挫折，大人教不會時也會著急。</span>同一道題明明已經說過很多次，孩子仍可能不知道「為什麼要這樣做」；大人則很容易因為擔心進度而越教越急。</p>
+  <div class="dialogue">
+    <div class="bubble adult">👨‍👩‍👧「這不是剛剛才教過嗎？怎麼又忘了？」</div>
+    <div class="bubble child">🧒「我知道你教過……可是我還是不知道為什麼。」</div>
+  </div>
+  <p>這讓我開始重新思考：孩子真正缺少的，也許不是更多題目，而是<span class="strong">更多理解問題的方法，以及可以沒有壓力地重新嘗試的機會。</span></p>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="icon yellow">🧰</div><div><h2>孩子卡住的，不一定是數學</h2><p class="kicker">有時候，只是還不熟悉手上的工具</p></div></div>
+  <p>例如「乘法」看起來只是一個運算，但對孩子來說，其實同時存在許多不同的理解工具。當某一種方式聽不懂，不代表沒有能力理解，也許只是還沒有找到適合自己的入口。</p>
+  <div class="tool-grid" aria-label="數學學習工具示例">
+    <div class="tool"><div class="emoji">➕</div><b>連加</b><small>把乘法先看成重複加法</small></div>
+    <div class="tool"><div class="emoji">🟢</div><b>分組</b><small>看見「幾組、每組幾個」</small></div>
+    <div class="tool"><div class="emoji">▦</div><b>方格</b><small>用陣列理解數量與面積</small></div>
+    <div class="tool"><div class="emoji">🧩</div><b>拆解</b><small>把大問題拆成幾個小問題</small></div>
+    <div class="tool"><div class="emoji">✏️</div><b>直式</b><small>熟悉位值與標準計算流程</small></div>
+  </div>
+  <div class="reset"><b>💡 一種方法不懂，就換一種方法。</b><p>多看一次、多操作幾次、多換一個角度，都可能讓原本模糊的概念突然變清楚。數學探險島希望把這些「工具」做成孩子可以親手操作的探索體驗。</p></div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="icon pink">🌱</div><div><h2>真正可怕的，是挫折形成連鎖反應</h2><p class="kicker">當「不知道」慢慢變成「我就是不會」</p></div></div>
+  <p>孩子在還沒上學以前，本來就很喜歡問「為什麼」。發現新的東西，本身就是一種樂趣。但當學習開始同時承載成績、課程進度、同儕比較，以及老師與家長的焦慮時，探索可能漸漸變成壓力。</p>
+  <div class="chain" aria-label="學習挫折的連鎖反應">
+    <div class="step">不理解</div><div class="arrow">→</div>
+    <div class="step">做錯</div><div class="arrow">→</div>
+    <div class="step">被比較／有壓力</div><div class="arrow">→</div>
+    <div class="step">害怕犯錯</div><div class="arrow">→</div>
+    <div class="step">不想嘗試</div><div class="arrow">→</div>
+    <div class="step">練習變少</div><div class="arrow">→</div>
+    <div class="step">基礎不足</div><div class="arrow">→</div>
+    <div class="step">後面更難理解</div>
+  </div>
+  <p>課程仍然持續往前，沒有理解的地方卻可能被留在後面。久而久之，孩子面對的已經不只是某一道題，而是逐漸累積的挫折感。</p>
+  <div class="reset"><b>「我不懂這一題」和「我就是不會」是完全不同的兩件事。</b><p>我希望設計能盡可能把孩子留在前者：允許不知道、允許慢一點、允許重新來過，直到找到理解的方法。</p></div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="icon green">🧭</div><div><h2>數學探險島想做的事</h2><p class="kicker">把「被要求學習」重新轉回「我想知道下一步」</p></div></div>
+  <p>我希望這裡不是另一個要求孩子一直答題、一直追求速度的地方，而是一個能夠自己操作、自己觀察、自己犯錯、自己重來，也能自己發現規律的空間。<span class="strong">學習可以慢，但不能因為被催趕而失去繼續嘗試的勇氣。</span></p>
+  <div class="principles">
+    <div class="principle"><b>🎮 讓練習有探索感</b><p>透過關卡、自我挑戰與逐步解鎖，讓孩子願意主動多試一次。</p></div>
+    <div class="principle"><b>🧰 讓工具可以被操作</b><p>把連加、拆解、方格、直式等概念變成看得見、摸得到的學習方式。</p></div>
+    <div class="principle"><b>🌟 讓成功經驗累積</b><p>不是只看答對幾題，而是讓孩子感受到「原來我可以理解、我可以做到」。</p></div>
+  </div>
+  <div class="path" aria-label="數學探險島學習路徑">
+    <span>好奇</span><i>→</i><span>探索</span><i>→</i><span>發現</span><i>→</i><span>理解</span><i>→</i><span>練習</span><i>→</i><span>挑戰</span><i>→</i><span>自信</span>
+  </div>
+</section>
+
+<section class="statement">
+  <h2>我希望孩子找回的，不只是成績。</h2>
+  <p>我想保留下來的，是孩子原本就有的好奇心：因為好奇而願意探索，在探索中產生發現，從發現累積理解與自信。當孩子願意再試一次、再多走一步，數學就不只是壓力，而能重新成為一場屬於自己的冒險。</p>
+  <span class="final">找回那個因好奇而探索、因發現而喜歡學習的孩子。</span>
+  <div class="cta-row">
+    <a class="button primary" href="./math/">🏝️ 前往數學探險島</a>
+    <a class="button secondary" href="./contact.html">💬 分享你的想法</a>
+  </div>
 </section>
 </main>
-<footer>GitHub Pages</footer>
-</body></html>
+
+<footer>Math Explorer Island · Built with curiosity ✨</footer>
+</body>
+</html>
