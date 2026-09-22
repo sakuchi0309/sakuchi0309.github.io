@@ -343,30 +343,12 @@ body.standard-ui .carrycell{font-size:19px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 
-.workshop-brand-hero{
-  position:relative;overflow:hidden;margin:4px 0 18px;border-radius:22px;
-  border:1px solid #ead6b8;background:#fff8ed;box-shadow:0 12px 30px rgba(112,73,30,.10)
-}
-.workshop-brand-hero img{
-  display:block;width:100%;height:min(310px,38vw);min-height:180px;object-fit:cover;object-position:center 54%
-}
-.workshop-brand-copy{
-  position:absolute;left:14px;top:14px;max-width:min(360px,60%);padding:0;background:transparent;box-shadow:none
-}
-.workshop-wood-title{
-  display:inline-flex;align-items:center;gap:10px;padding:11px 16px;border-radius:18px;
-  background:linear-gradient(180deg,#9b6435 0%,#7f4a25 100%);
-  border:4px solid #5b3418;box-shadow:0 10px 24px rgba(57,33,14,.28), inset 0 2px 0 rgba(255,255,255,.18);
-  color:#fff7e8
-}
-.workshop-wood-title strong{
-  font-size:clamp(22px,4vw,34px);line-height:1;color:#fff8ec;text-shadow:0 2px 0 rgba(77,43,17,.55)
-}
-.workshop-brand-sub{
-  margin-top:10px;display:inline-block;padding:10px 13px;border-radius:14px;
-  background:rgba(255,250,241,.90);border:1px solid rgba(132,86,45,.18);box-shadow:0 8px 24px rgba(64,40,18,.10);
-  color:#765b43;line-height:1.6
-}
+.workshop-brand-hero{position:relative;overflow:hidden;max-width:1120px;margin:4px auto 18px;border-radius:22px;border:1px solid #ead6b8;background:#fff8ed;box-shadow:0 12px 30px rgba(112,73,30,.10)}
+.workshop-brand-hero img{display:block!important;width:100%!important;height:auto!important;aspect-ratio:16/7!important;object-fit:cover!important;object-position:center 50%!important}
+
+
+
+
 #feedback.ok,#feedback.bad,#feedback.warn{align-items:flex-start;gap:11px}
 #feedback.ok::before,#feedback.bad::before,#feedback.warn::before{
   content:"";flex:0 0 52px;width:52px;height:52px;border-radius:50%;
@@ -379,13 +361,13 @@ body.standard-ui .carrycell{font-size:19px}
 }
 .workshop-mascot-note img{width:46px;height:46px;border-radius:50%;object-fit:cover}
 @media(max-width:640px){
-  .workshop-brand-copy{left:10px;top:10px;max-width:calc(100% - 20px)}
-  .workshop-brand-hero img{height:210px}
-  .workshop-brand-sub{font-size:14px}
+  
+  
+  
   #feedback.ok::before,#feedback.bad::before,#feedback.warn::before{flex-basis:44px;width:44px;height:44px}
 }
 
-  .workshop-brand-hero img{height:220px}
+  
   #feedback.ok::before,#feedback.bad::before,#feedback.warn::before{flex-basis:44px;width:44px;height:44px}
 }
 
@@ -588,10 +570,6 @@ body.standard-ui .carrycell{font-size:19px}
   <a class="workshop-back" href="../">← 返回 🧭 數學探險島</a>
   <section class="workshop-brand-hero">
     <img src="../assets/multiplication/workshop-interior.webp" alt="乘法工坊內部配置圖：溫暖木作教室、算式黑板、操作桌、教具與漂浮紫色小精靈">
-    <div class="workshop-brand-copy">
-      <div class="workshop-wood-title"><span>🔧</span><strong>乘法工坊</strong></div>
-      
-    </div>
   </section>
 
   <div class="resume-card" id="resumeCard" aria-live="polite">
